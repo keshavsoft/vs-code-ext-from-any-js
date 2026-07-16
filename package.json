@@ -4,7 +4,7 @@
   "description": "start from any js, and hook foldes",
   "publisher": "KeshavSoft",
   "type": "module",
-  "version": "1.4.2",
+  "version": "1.5.1",
   "engines": {
     "vscode": "^1.116.0"
   },
@@ -94,6 +94,6 @@
   "dependencies": {
     "kschema-api-gen-appjs": "^1.9.2",
     "kschema-api-gen-endpointsjs": "^1.7.4",
-    "kschema-ui-hook-add-listeners": "^1.4.2"
+    "kschema-ui-hook-add-listeners": "^1.5.3"
   }
 }
