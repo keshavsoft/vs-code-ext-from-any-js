@@ -4,7 +4,7 @@
   "description": "start from any js, and hook foldes",
   "publisher": "KeshavSoft",
   "type": "module",
-  "version": "1.9.1",
+  "version": "1.3.1",
   "engines": {
     "vscode": "^1.116.0"
   },
@@ -30,6 +30,10 @@
       {
         "command": "extension.editor.title.frontend.addListeners.addHtmlId",
         "title": "addHtmlId"
+      },
+      {
+        "command": "extension.editor.title.backend.appjs.start",
+        "title": "startEndPoint"
       }
     ],
     "menus": {
@@ -55,6 +59,11 @@
         {
           "command": "extension.editor.title.frontend.addListeners.addHtmlId",
           "when": "resourceFilename == addListeners.js",
+          "group": "navigation@3"
+        },
+        {
+          "command": "extension.editor.title.backend.appjs.start",
+          "when": "resourceFilename == app.js",
           "group": "navigation@3"
         }
       ]
