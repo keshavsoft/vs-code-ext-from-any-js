@@ -19,3 +19,5 @@ now need to take folder and table
 1.7.1
 
 endpointsjs hooked nice
+
+1.9.2 APP.JS start end point perfect
