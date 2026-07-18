@@ -4,7 +4,7 @@
   "description": "start from any js, and hook foldes",
   "publisher": "KeshavSoft",
   "type": "module",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "engines": {
     "vscode": "^1.116.0"
   },
@@ -42,6 +42,10 @@
       {
         "command": "extension.editor.title.backend.endpointsjs.methods.post",
         "title": "postMethod"
+      },
+      {
+        "command": "extension.explorer.right.public.init",
+        "title": "InitFromScript"
       }
     ],
     "menus": {
@@ -49,6 +53,11 @@
         {
           "command": "extension.editor.title.routesjs.addTableNameHtml",
           "when": "resourceFilename == routes.js",
+          "group": "navigation@2"
+        },
+        {
+          "command": "extension.explorer.right.public.init",
+          "when": "explorerResourceIsFolder && resourceFilename == Public",
           "group": "navigation@2"
         }
       ],
@@ -105,6 +114,7 @@
     "kschema-api-gen-endpointsjs": "^1.7.4",
     "kschema-ui-hook-add-listeners": "^1.5.3",
     "kschema-fs-api-gen-post-actions": "^1.19.9",
-    "kschema-fs-read-config": "^1.4.8"
+    "kschema-fs-read-config": "^1.4.8",
+    "json-crud-ui-init": "^1.7.3"
   }
 }
