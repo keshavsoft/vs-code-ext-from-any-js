@@ -4,7 +4,7 @@
   "description": "start from any js, and hook foldes",
   "publisher": "KeshavSoft",
   "type": "module",
-  "version": "1.9.2",
+  "version": "1.10.1",
   "engines": {
     "vscode": "^1.116.0"
   },
