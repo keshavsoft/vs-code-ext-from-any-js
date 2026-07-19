@@ -12,5 +12,11 @@ function getFolderName(defaultValue = "") {
 }
 
 function startEndPointAction() {
-    sendAction("startEndPoint", { inFolderName: getFolderName() });
+    const folderName = getFolderName() || "startEndPoint";
+    const existingFolders = window.apisPresentList || [];
+    if (existingFolders.includes(folderName)) {
+        showError(`Folder "${folderName}" already exists! Please enter a different folder name.`);
+        return;
+    }
+    sendAction("startEndPoint", { inFolderName: folderName });
 }

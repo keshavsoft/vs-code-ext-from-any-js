@@ -10,6 +10,7 @@ window.addEventListener("message", ({ data }) => {
     };
 
     if (data.type === "apis") {
+        window.apisPresentList = data.apisPresent || [];
         const container = document.getElementById("apis-list-container");
         if (container) {
             container.innerHTML = "";
