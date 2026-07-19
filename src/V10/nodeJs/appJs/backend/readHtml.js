@@ -15,12 +15,13 @@ const activateHtml = (context, uri) => {
     panel.webview.html = getHtmlWithScripts();
 
     panel.webview.onDidReceiveMessage(async (message) => {
-        const { userRootFolder, folderPath } = getWorkspaceContext(uri);
+        const { userRootFolder, folderPath, activeEditorContect } = getWorkspaceContext(uri);
 
         await handleWebviewMessage({
             message,
             panel,
-            toPath: folderPath
+            toPath: folderPath,
+            activeEditorContect
         });
     });
 };

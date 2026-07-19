@@ -125,6 +125,7 @@
     "kschema-fs-api-gen-post-actions": "^1.19.9",
     "kschema-fs-read-config": "^1.4.8",
     "kschema-fs-ui-alter-config": "^1.5.2",
-    "kschema-ui-hook-add-listeners": "^1.5.3"
+    "kschema-ui-hook-add-listeners": "^1.5.3",
+    "pattern-collector-appjs-use-extract": "^1.2.1"
   }
 }
