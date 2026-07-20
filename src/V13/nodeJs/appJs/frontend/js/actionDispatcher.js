@@ -19,4 +19,4 @@ function startEndPointAction() {
         return;
     }
     sendAction("startEndPoint", { inFolderName: folderName });
-}
+};
