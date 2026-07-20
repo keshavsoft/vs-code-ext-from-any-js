@@ -17,5 +17,24 @@ function getFolderName(defaultValue = "") {
 }
 
 function addTableName() {
-    sendAction("addTableName", { tableName: getSelectedTable(), inFolderName: getFolderName(getSelectedTable()) });
-}
+    debugger;
+    const folderName = getFolderName() || "startEndPoint";
+    const existingFolders = window.foldersAlreadyPresentList || [];
+
+    if (existingFolders.includes(folderName)) {
+        showError(`Folder "${folderName}" already exists! Please enter a different folder name.`);
+        return;
+    };
+
+    sendAction("addTableName", { tableName: getSelectedTable(), inFolderName: folderName });
+};
+
+function startEndPointAction() {
+    const folderName = getFolderName() || "startEndPoint";
+    const existingFolders = window.apisPresentList || [];
+    if (existingFolders.includes(folderName)) {
+        showError(`Folder "${folderName}" already exists! Please enter a different folder name.`);
+        return;
+    }
+    sendAction("startEndPoint", { inFolderName: folderName });
+};

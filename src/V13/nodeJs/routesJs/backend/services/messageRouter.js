@@ -12,7 +12,8 @@ export async function handleWebviewMessage({ message, panel, toPath, schemasPath
             const foldersAlreadyPresent = getFolders(toPath);
 
             panel.webview.postMessage({
-                type: "schemas",
+                type: "showFolders",
+                foldersAlreadyPresent,
                 schemas
             });
             break;
