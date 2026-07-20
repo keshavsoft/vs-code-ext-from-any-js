@@ -17,24 +17,29 @@ function getFolderName(defaultValue = "") {
 }
 
 function addTableName() {
-    debugger;
     const folderName = getFolderName() || "startEndPoint";
     const existingFolders = window.foldersAlreadyPresentList || [];
 
-    if (existingFolders.includes(folderName)) {
+    const isExist = existingFolders.some(loopFolder => loopFolder.folderName === folderName);
+
+    if (isExist) {
         showError(`Folder "${folderName}" already exists! Please enter a different folder name.`);
         return;
-    };
+    }
 
     sendAction("addTableName", { tableName: getSelectedTable(), inFolderName: folderName });
-};
+}
 
 function startEndPointAction() {
     const folderName = getFolderName() || "startEndPoint";
-    const existingFolders = window.apisPresentList || [];
-    if (existingFolders.includes(folderName)) {
+    const existingFolders = window.foldersAlreadyPresentList || [];
+
+    const isExist = existingFolders.some(loopFolder => loopFolder.folderName === folderName);
+
+    if (isExist) {
         showError(`Folder "${folderName}" already exists! Please enter a different folder name.`);
         return;
     }
     sendAction("startEndPoint", { inFolderName: folderName });
-};
+}
+
