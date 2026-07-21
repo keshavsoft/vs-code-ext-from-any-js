@@ -1,13 +1,12 @@
-import addTableNameAction from "./actions/addTableName.js";
-import { getSchemaFiles } from "./schemaService.js";
-import getFolders from "./getFoldersFromImport.js";
+import forgeEndpointAction from "../forge/actions/forgeEndpoint.js";
+import { getSchemaFiles } from "../forge/schemaScanner.js";
+import getFolders from "../forge/routeScanner.js";
 
 export async function handleWebviewMessage({ message, panel, toPath, schemasPath,
     port, inTargetPath }) {
 
     switch (message.action) {
         case "loadSchemas":
-
             const schemas = getSchemaFiles(schemasPath);
             const foldersAlreadyPresent = getFolders(toPath);
 
@@ -19,7 +18,7 @@ export async function handleWebviewMessage({ message, panel, toPath, schemasPath
             break;
 
         case "addTableName":
-            await addTableNameAction({
+            await forgeEndpointAction({
                 panel,
                 tableName: message.tableName,
                 toPath,
