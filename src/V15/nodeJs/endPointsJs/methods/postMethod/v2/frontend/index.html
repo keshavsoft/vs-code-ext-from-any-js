@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-[#1e1e1e] text-white min-h-screen p-6">
+
+    <div class="max-w-3xl mx-auto">
+
+        <div class="mb-6">
+            <h1 class="text-2xl font-semibold">
+                Generate - post actions
+            </h1>
+
+            <p class="text-sm text-gray-400 mt-1">
+                Generate post actions from end-points.js
+            </p>
+        </div>
+
+        <!-- Table Name Select -->
+        <div class="mb-6 bg-[#252526] p-5 rounded-xl border border-gray-700">
+            <label for="table-select" class="block text-sm font-medium text-gray-300 mb-2">
+                Select Table Name (from Schema)
+            </label>
+            <div class="relative">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
+                    📊
+                </span>
+                <select id="table-select"
+                    class="w-full bg-[#1e1e1e] border border-gray-700 rounded-lg pl-10 pr-10 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm appearance-none">
+                    <option value="">-- No Tables Loaded --</option>
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
+                    ▼
+                </div>
+            </div>
+        </div>
+
+        <!-- Folder Name Input -->
+        <div class="mb-6 bg-[#252526] p-5 rounded-xl border border-gray-700">
+            <label for="folder-name" class="block text-sm font-medium text-gray-300 mb-2">
+                New Folder Name (Optional)
+            </label>
+            <div class="relative">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
+                    📁
+                </span>
+                <input type="text" id="folder-name"
+                    class="w-full bg-[#1e1e1e] border border-gray-700 rounded-lg pl-10 pr-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm"
+                    placeholder="Enter folder name to create and generate into (e.g. showAll)">
+            </div>
+            <p class="text-xs text-gray-400 mt-2">
+                If left blank, it will be created with the action name as the folder name only.
+            </p>
+        </div>
+
+        <!-- post Actions -->
+        <div class="mt-6">
+
+            <div class="text-sm text-gray-400 mb-3">
+                post Actions
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <button onclick="insertGenPk()" class="group bg-[#252526]
+                    border border-gray-700
+                    rounded-xl p-5 text-left
+                    hover:border-blue-500
+                    hover:bg-[#2d2d30]
+                    transition-all">
+                    <div class="text-2xl mb-2">🔢</div>
+
+                    <div class="font-medium">
+                        insertGenPk
+                    </div>
+
+                    <div class="text-sm text-gray-400">
+                        insertGenPk using lowdb content from body
+                    </div>
+                </button>
+
+                <button onclick="find()" class="group bg-[#252526]
+                    border border-gray-700
+                    rounded-xl p-5 text-left
+                    hover:border-blue-500
+                    hover:bg-[#2d2d30]
+                    transition-all">
+                    <div class="text-2xl mb-2">🔢</div>
+
+                    <div class="font-medium">
+                        find
+                    </div>
+
+                    <div class="text-sm text-gray-400">
+                        find using lowdb
+                    </div>
+                </button>
+
+                <button onclick="filterQuery()" class="group bg-[#252526]
+                    border border-gray-700
+                    rounded-xl p-5 text-left
+                    hover:border-blue-500
+                    hover:bg-[#2d2d30]
+                    transition-all">
+                    <div class="text-2xl mb-2">🔢</div>
+
+                    <div class="font-medium">
+                        FilterQuery
+                    </div>
+
+                    <div class="text-sm text-gray-400">
+                        FilterQuery using lowdb
+                    </div>
+                </button>
+
+                <button onclick="groupBy()" class="group bg-[#252526]
+                    border border-gray-700
+                    rounded-xl p-5 text-left
+                    hover:border-blue-500
+                    hover:bg-[#2d2d30]
+                    transition-all">
+                    <div class="text-2xl mb-2">🔢</div>
+
+                    <div class="font-medium">
+                        groupBy
+                    </div>
+
+                    <div class="text-sm text-gray-400">
+                        groupBy using lowdb and column from queyr param
+                    </div>
+                </button>
+
+                <button onclick="insertWithMeta()" class="group bg-[#252526]
+                    border border-gray-700
+                    rounded-xl p-5 text-left
+                    hover:border-blue-500
+                    hover:bg-[#2d2d30]
+                    transition-all">
+                    <div class="text-2xl mb-2">🔢</div>
+
+                    <div class="font-medium">
+                        insertWithMeta
+                    </div>
+
+                    <div class="text-sm text-gray-400">
+                        insertWithMeta using lowdb and date stamp, uuid from crypto
+                    </div>
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- Status -->
+        <div id="status" class="hidden mt-6 rounded-xl border border-blue-600/30
+    bg-blue-500/10 px-4 py-3 text-blue-300">
+        </div>
+
+        <!-- Summary -->
+        <div id="summary" class="hidden mt-4 rounded-xl border border-gray-700
+    bg-[#252526] p-4">
+        </div>
+    </div>
+
+</body>
+
+</html>
