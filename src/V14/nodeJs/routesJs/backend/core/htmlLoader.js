@@ -6,10 +6,10 @@ export function getHtmlWithScripts() {
     let html = fs.readFileSync(path.join(frontendDir, "index.html"), "utf8");
 
     const jsFiles = [
-        "vscodeApi.js",
-        "actionDispatcher.js",
-        "uiNotifier.js",
-        "main.js"
+        "vscodeBridge.js",
+        "forgeActions.js",
+        "uiPresenter.js",
+        "forgeController.js"
     ];
 
     const scriptTags = jsFiles.map(file => {
