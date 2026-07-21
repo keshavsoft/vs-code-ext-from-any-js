@@ -2,7 +2,8 @@ import * as vscode from 'vscode';
 
 import routesJs from './routesJs/backend/readHtml.js';
 import appJs from './appJs/backend/readHtml.js';
-import endPointsJs from './endPointsJs/backend/readHtml.js';
+// import endPointsJs from './endPointsJs/methods/postMethod/v1/backend/readHtml.js';
+import endPointsJs from './endPointsJs/registerCommands.js';
 
 const routesJsCommands = (context) => {
     // 2. Register new Webview command (AddTableNameHtml)
@@ -26,7 +27,7 @@ const endPointsJsCommands = (context) => {
 const registerAllCommands = (context) => {
     routesJsCommands(context);
     appJsCommands(context);
-    endPointsJsCommands(context);
+    endPointsJs(context);
 };
 
 export default registerAllCommands;
