@@ -4,7 +4,7 @@
   "description": "start from any js, and hook foldes",
   "publisher": "KeshavSoft",
   "type": "module",
-  "version": "1.15.1",
+  "version": "1.15.2",
   "engines": {
     "vscode": "^1.116.0"
   },
@@ -65,7 +65,7 @@
         },
         {
           "command": "extension.explorer.right.public.init",
-          "when": "explorerResourceIsFolder && resourceFilename == Public",
+          "when": "explorerResourceIsFolder && resourceFilename =~ /^(Public|public)$/",
           "group": "navigation@2"
         }
       ],
