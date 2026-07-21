@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-[#1e1e1e] text-white min-h-screen p-6">
+
+    <div class="max-w-3xl mx-auto">
+
+        <div class="mb-6">
+            <h1 class="text-2xl font-semibold">
+                Generate - Get actions
+            </h1>
+
+            <p class="text-sm text-gray-400 mt-1">
+                Generate get actions from end-points.js
+            </p>
+        </div>
+
+        <!-- get Actions -->
+        <div class="mt-6">
+
+            <div class="text-sm text-gray-400 mb-3">
+                Get Actions
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <button onclick="showAll()" class="group bg-[#252526]
+                    border border-gray-700
+                    rounded-xl p-5 text-left
+                    hover:border-blue-500
+                    hover:bg-[#2d2d30]
+                    transition-all">
+                    <div class="text-2xl mb-2">🔢</div>
+
+                    <div class="font-medium">
+                        showAll
+                    </div>
+
+                    <div class="text-sm text-gray-400">
+                        showAll using lowdb
+                    </div>
+                </button>
+
+                <button onclick="find()" class="group bg-[#252526]
+                    border border-gray-700
+                    rounded-xl p-5 text-left
+                    hover:border-blue-500
+                    hover:bg-[#2d2d30]
+                    transition-all">
+                    <div class="text-2xl mb-2">🔢</div>
+
+                    <div class="font-medium">
+                        find
+                    </div>
+
+                    <div class="text-sm text-gray-400">
+                        find using lowdb
+                    </div>
+                </button>
+
+                <button onclick="filterQuery()" class="group bg-[#252526]
+                    border border-gray-700
+                    rounded-xl p-5 text-left
+                    hover:border-blue-500
+                    hover:bg-[#2d2d30]
+                    transition-all">
+                    <div class="text-2xl mb-2">🔢</div>
+
+                    <div class="font-medium">
+                        FilterQuery
+                    </div>
+
+                    <div class="text-sm text-gray-400">
+                        FilterQuery using lowdb
+                    </div>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Status -->
+        <div id="status" class="hidden mt-6 rounded-xl border border-blue-600/30
+    bg-blue-500/10 px-4 py-3 text-blue-300">
+        </div>
+
+        <!-- Summary -->
+        <div id="summary" class="hidden mt-4 rounded-xl border border-gray-700
+    bg-[#252526] p-4">
+        </div>
+    </div>
+    <!-- 
+    <script>
+        const vscode = acquireVsCodeApi();
+
+        function showAll() {
+            vscode.postMessage({
+                action: "showAll"
+            });
+        };
+
+        function find() {
+            vscode.postMessage({
+                action: "find"
+            });
+        };
+
+        function FilterQuery() {
+            vscode.postMessage({
+                action: "filterQuery"
+            });
+        };
+
+        window.addEventListener("message", ({ data }) => {
+
+            if (data.type === "status") {
+                document.getElementById("status")
+                    .classList.remove("hidden");
+
+                document.getElementById("status")
+                    .innerHTML = data.text;
+            }
+
+            if (data.type === "summary") {
+                document.getElementById("summary")
+                    .classList.remove("hidden");
+
+                document.getElementById("summary")
+                    .innerHTML = data.html;
+            };
+
+            if (data.type === "complete") {
+                document.getElementById("status")
+                    .classList.add("hidden");
+
+                const summary =
+                    document.getElementById("summary");
+
+                summary.classList.remove("hidden");
+                summary.innerHTML = data.html;
+            }
+        });
+    </script> -->
+
+</body>
+
+</html>
