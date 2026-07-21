@@ -38,4 +38,4 @@ Follow these steps to create your Personal Access Token (PAT) and set up the Git
 ## Step 3: Run the Workflow
 
 1. Push a version tag to your repository (e.g., `git tag v1.14.5` and `git push origin v1.14.5`).
-2. Alternatively, go to the **Actions** tab on GitHub, select the **Publish Extension** workflow, and click **Run workflow** to trigger it manually.
+2. Alternatively, go to the **Actions** tab on GitHub, select the **Publish NPM and Extension** workflow, and click **Run workflow** to trigger it manually.
