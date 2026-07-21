@@ -1,9 +1,14 @@
-# 🛠️ Which Action to Run for VS Code Marketplace
+# 🛠️ Which Action to Run for Publishing
 
-To publish the extension to the **VS Code Marketplace** (and not NPM), you should run the following workflow on the GitHub Actions tab:
+There are two GitHub Actions workflows available:
 
-### **`Publish Extension`**
+### 1. **`NPM Publish`**
+- Defined in [npm-publish.yml](file:///d:/KeshavSoftRepos/2026-07-21/ks1/vs-code-ext-from-any-js/.github/workflows/npm-publish.yml).
+- Publishes the package to NPM and provides an execution summary.
+- Run this manually via the GitHub Actions UI.
 
-This workflow is defined in [publish.yml](file:///d:/KeshavSoftRepos/2026-07-21/ks1/vs-code-ext-from-any-js/.github/workflows/publish.yml) and performs the `vsce publish` command, which deploys the extension package directly to the Visual Studio Code Marketplace.
+### 2. **`Publish NPM and Extension`**
+- Defined in [publish.yml](file:///d:/KeshavSoftRepos/2026-07-21/ks1/vs-code-ext-from-any-js/.github/workflows/publish.yml).
+- Performs step 1 (NPM Publish) and then packages and publishes the extension directly to the VS Code Marketplace.
+- Triggered automatically on pushing a version tag (e.g. `v*`) or run manually via the GitHub Actions UI.
 
-*(The other workflow, `Update Dependency on Publish`, is for updating downstream npm packages, not for publishing the extension itself).*
