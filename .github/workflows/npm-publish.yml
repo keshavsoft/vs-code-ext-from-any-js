@@ -1,14 +1,11 @@
-name: Publish NPM and Extension
+name: NPM Publish
 
 on:
-  push:
-    tags:
-      - 'v*'
   workflow_dispatch:
 
 jobs:
   publish:
-    name: Publish to NPM and VS Code Marketplace
+    name: Publish to NPM
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -34,14 +31,6 @@ jobs:
           npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_TOKEN }}
           npm publish --access public
 
-      - name: Package extension
-        id: vsce_package
-        run: npx @vscode/vsce package
-
-      - name: Publish extension
-        id: vsce_publish
-        run: npx @vscode/vsce publish -p ${{ secrets.VSCE_PAT }}
-
       - name: Generate Workflow Summary
         if: always()
         run: |
@@ -54,18 +43,6 @@ jobs:
             echo "- **Version:** \`$(node -p "require('./package.json').version")\`" >> $GITHUB_STEP_SUMMARY
             echo "- **Registry Link:** [npmjs.com/package/vs-code-ext-from-any-js](https://www.npmjs.com/package/vs-code-ext-from-any-js)" >> $GITHUB_STEP_SUMMARY
           elif [ "${{ steps.npm_publish.outcome }}" = "failure" ]; then
-            echo "- **Status:** Failed ❌" >> $GITHUB_STEP_SUMMARY
-          else
-            echo "- **Status:** Skipped ⏭️" >> $GITHUB_STEP_SUMMARY
-          fi
-          
-          echo "### 🎨 VS Code Marketplace Publish Status" >> $GITHUB_STEP_SUMMARY
-          if [ "${{ steps.vsce_publish.outcome }}" = "success" ]; then
-            echo "- **Status:** Success ✅" >> $GITHUB_STEP_SUMMARY
-            echo "- **Extension Name:** \`vs-code-ext-from-any-js\`" >> $GITHUB_STEP_SUMMARY
-            echo "- **Version:** \`$(node -p "require('./package.json').version")\`" >> $GITHUB_STEP_SUMMARY
-            echo "- **Marketplace Link:** [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=KeshavSoft.vs-code-ext-from-any-js)" >> $GITHUB_STEP_SUMMARY
-          elif [ "${{ steps.vsce_publish.outcome }}" = "failure" ]; then
             echo "- **Status:** Failed ❌" >> $GITHUB_STEP_SUMMARY
           else
             echo "- **Status:** Skipped ⏭️" >> $GITHUB_STEP_SUMMARY
