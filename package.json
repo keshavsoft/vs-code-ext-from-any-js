@@ -4,7 +4,7 @@
   "description": "start from any js, and hook foldes",
   "publisher": "KeshavSoft",
   "type": "module",
-  "version": "1.14.2",
+  "version": "1.14.3",
   "engines": {
     "vscode": "^1.116.0"
   },
@@ -50,6 +50,10 @@
       {
         "command": "extension.editor.title.frontend.public.html.init",
         "title": "fillColumns"
+      },
+      {
+        "command": "extension.editor.title.backend.endpointsjs.methods.get",
+        "title": "getMethod"
       }
     ],
     "menus": {
@@ -101,6 +105,11 @@
           "command": "extension.editor.title.frontend.public.html.init",
           "when": "resourceFilename == index.html",
           "group": "navigation@3"
+        },
+        {
+          "command": "extension.editor.title.backend.endpointsjs.methods.get",
+          "when": "resourceFilename == end-points.js",
+          "group": "navigation@3"
         }
       ]
     }
@@ -122,6 +131,7 @@
     "json-crud-ui-init": "^1.8.7",
     "kschema-api-gen-appjs": "^1.9.2",
     "kschema-api-gen-endpointsjs": "^1.7.4",
+    "kschema-fs-api-gen-get-actions": "^1.10.2",
     "kschema-fs-api-gen-post-actions": "^1.19.9",
     "kschema-fs-read-config": "^1.4.8",
     "kschema-fs-ui-alter-config": "^1.5.2",
