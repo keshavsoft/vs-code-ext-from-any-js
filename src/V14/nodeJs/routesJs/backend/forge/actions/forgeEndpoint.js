@@ -1,5 +1,5 @@
 import addTableName from 'kschema-api-gen-endpointsjs';
-import { executeGenerationTask } from "../generatorService.js";
+import { executeGenerationTask } from "../forgeEngine.js";
 
 const startFunc = async ({ panel, tableName, toPath, inFolderName }) => {
     await executeGenerationTask({
