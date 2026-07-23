@@ -2,143 +2,356 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>VS Code Generator Documentation</title>
 
     <style>
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
+        :root {
+            --bg: #050816;
+            --panel: #11172a;
+            --panel2: #0b1120;
+            --border: #22304f;
+            --text: #dbe7ff;
+            --muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent2: #60a5fa;
+            --shadow: 0 20px 50px rgba(0, 0, 0, .35);
+            --radius: 24px;
         }
 
-        body{
-            font-family:Segoe UI,Arial,sans-serif;
-            background:#0f172a;
-            color:#e2e8f0;
-            min-height:100vh;
-            display:flex;
-            justify-content:center;
-            align-items:center;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .container{
-            width:90%;
-            max-width:1100px;
-            text-align:center;
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background:
+                radial-gradient(circle at top, rgba(56, 189, 248, .10), transparent 35%),
+                linear-gradient(180deg, #050816 0%, #08101f 100%);
+            color: var(--text);
+            min-height: 100vh;
         }
 
-        h1{
-            color:#38bdf8;
-            margin-bottom:15px;
-            font-size:42px;
+        .wrap {
+            width: min(1200px, 92%);
+            margin: 0 auto;
+            padding: 60px 0 80px;
         }
 
-        .subtitle{
-            color:#cbd5e1;
-            margin-bottom:50px;
-            font-size:18px;
+        .hero {
+            text-align: center;
+            margin-bottom: 42px;
         }
 
-        .cards{
-            display:grid;
-            grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-            gap:30px;
+        .hero .tag {
+            display: inline-block;
+            padding: 8px 16px;
+            border: 1px solid rgba(56, 189, 248, .35);
+            background: rgba(56, 189, 248, .08);
+            color: var(--accent);
+            border-radius: 999px;
+            font-size: 14px;
+            margin-bottom: 18px;
         }
 
-        .card{
-            background:#020617;
-            border:1px solid #1e293b;
-            border-radius:18px;
-            padding:35px;
-            cursor:pointer;
-            transition:.3s;
-            text-align:left;
+        .hero h1 {
+            font-size: clamp(30px, 4vw, 54px);
+            color: #ffffff;
+            letter-spacing: -0.03em;
+            margin-bottom: 14px;
         }
 
-        .card:hover{
-            transform:translateY(-8px);
-            border-color:#38bdf8;
-            box-shadow:0 15px 40px rgba(56,189,248,.25);
+        .hero p {
+            color: var(--muted);
+            font-size: 18px;
+            max-width: 760px;
+            margin: 0 auto;
+            line-height: 1.7;
         }
 
-        .icon{
-            font-size:50px;
-            margin-bottom:20px;
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 28px;
+            margin-top: 38px;
         }
 
-        h2{
-            color:#38bdf8;
-            margin-bottom:15px;
+        .card {
+            position: relative;
+            background: linear-gradient(180deg, rgba(17, 23, 42, .98), rgba(11, 17, 32, .98));
+            border: 1px solid rgba(34, 48, 79, .9);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            cursor: pointer;
+            transition: .28s ease;
+            min-height: 280px;
         }
 
-        p{
-            color:#cbd5e1;
-            line-height:1.7;
+        .card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(56, 189, 248, .10), transparent 40%);
+            pointer-events: none;
         }
 
-        .btn{
-            display:inline-block;
-            margin-top:25px;
-            color:white;
-            background:#0284c7;
-            padding:12px 22px;
-            border-radius:8px;
-            text-decoration:none;
-            font-weight:bold;
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(56, 189, 248, .65);
+            box-shadow: 0 28px 60px rgba(0, 0, 0, .45);
         }
 
-        .btn:hover{
-            background:#0369a1;
+        .card-top {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        .icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            display: grid;
+            place-items: center;
+            background: rgba(56, 189, 248, .10);
+            border: 1px solid rgba(56, 189, 248, .18);
+            font-size: 26px;
+            flex: 0 0 auto;
+        }
+
+        .title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.1;
+        }
+
+        .desc {
+            color: var(--muted);
+            line-height: 1.75;
+            font-size: 16px;
+            margin-bottom: 22px;
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 26px;
+        }
+
+        .chip {
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(148, 163, 184, .10);
+            border: 1px solid rgba(148, 163, 184, .14);
+            color: #cbd5e1;
+            font-size: 13px;
+        }
+
+        .open {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--accent);
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .open span {
+            display: inline-block;
+            transform: translateY(-1px);
+            transition: .2s ease;
+        }
+
+        .card:hover .open span {
+            transform: translate(4px, -1px);
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+
+        .brand {
+            color: #fff;
+            font-weight: 700;
+            letter-spacing: .02em;
+        }
+
+        .repo {
+            color: var(--muted);
+            font-size: 14px;
+            word-break: break-all;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 46px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        @media (max-width:640px) {
+            .wrap {
+                padding-top: 28px;
+            }
+
+            .card {
+                padding: 24px;
+            }
+
+            .title {
+                font-size: 24px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+        }
+
+        .copy-box {
+
+            display: flex;
+            background: #090d18;
+            border: 1px solid #2d3d61;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 20px;
+
+        }
+
+        .copy-box input {
+
+            flex: 1;
+            padding: 18px;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 16px;
+            outline: none;
+
+        }
+
+        .copy-box button {
+
+            width: 110px;
+            background: #1b2744;
+            border: none;
+            color: #38bdf8;
+            cursor: pointer;
+            font-weight: bold;
+            transition: .3s;
+
+        }
+
+        .copy-box button:hover {
+
+            background: #26365d;
+
         }
     </style>
-
 </head>
 
 <body>
-
-<div class="container">
-
-    <h1>VS Code Generator Documentation</h1>
-
-    <p class="subtitle">
-        Select the documentation you want to explore.
-    </p>
-
-    <div class="cards">
-
-        <div class="card" onclick="location.href='backend.html'">
-            <div class="icon">🚀</div>
-
-            <h2>Backend Documentation</h2>
-
-            <p>
-                Learn how to generate Express.js APIs, endpoint folders,
-                routes, table-based endpoints, and automate backend setup
-                directly from Visual Studio Code.
-            </p>
-
-            <a class="btn" href="backEnd.html">Open Backend</a>
+    <div class="wrap">
+        <div class="topbar">
+            <div class="brand">VS Code Generator Documentation</div>
+            <div class="repo">keshavsoft/vs-code-ext-from-any-js</div>
         </div>
 
-        <div class="card" onclick="location.href='frontend.html'">
-            <div class="icon">🎨</div>
-
-            <h2>Frontend Documentation</h2>
-
+        <section class="hero">
+            <div class="tag">Choose a section</div>
+            <h1>vs-code-ext-from-any-js Documentation</h1>
             <p>
-                Learn how to generate frontend boilerplates, CRUD projects,
-                reusable HTML modules, listener files, and HTML ID-based
-                components using the VS Code extension.
+                Select Backend or Frontend to open a dedicated HTML page with command details,
+                workflow, and examples.
             </p>
+        </section>
+        <label for="">clone</label>
 
-            <a class="btn" href="frontEnd.html">Open Frontend</a>
+        <div class="copy-box">
+            <input id="cloneUrl" value="https://github.com/keshavsoft/vs-code-ext-from-any-js.git" readonly>
+
+            <button onclick="copyGit()">
+                Copy
+            </button>
+
         </div>
 
+        <section class="grid">
+            <div class="card" onclick="location.href='backEnd.html'">
+                <div class="card-top">
+                    <div class="icon">🚀</div>
+                    <div class="title">Backend</div>
+                </div>
+
+                <p class="desc">
+                    Express.js API generator, endpoint folders, routes, table-based files, and VS Code title bar
+                    commands.
+                </p>
+
+                <div class="chips">
+                    <span class="chip">StartEndPoint</span>
+                    <span class="chip">AddTableName</span>
+                    <span class="chip">AddTableNameHtml</span>
+                </div>
+
+                <a class="open" href="backEnd.html">Open Backend <span>→</span></a>
+            </div>
+
+            <div class="card" onclick="location.href='frontEnd.html'">
+                <div class="card-top">
+                    <div class="icon">🎨</div>
+                    <div class="title">Frontend</div>
+                </div>
+
+                <p class="desc">
+                    Frontend boilerplates, CRUD structure, HTML modules, listener files, and HTML ID based folder
+                    generation.
+                </p>
+
+                <div class="chips">
+                    <span class="chip">InitFromScript</span>
+                    <span class="chip">insertSimple</span>
+                    <span class="chip">insertCrud</span>
+                </div>
+
+                <a class="open" href="frontEnd.html">Open Frontend <span>→</span></a>
+            </div>
+        </section>
+
+        <div class="footer">
+            Made for fast navigation between backend and frontend docs.
+        </div>
     </div>
+    <script>
+        function copyGit() {
 
-</div>
+            const text = document.getElementById("cloneUrl");
 
+            navigator.clipboard.writeText(text.value);
+
+            const btn = event.target;
+
+            btn.innerHTML = "Copied ✓";
+
+            setTimeout(() => {
+                btn.innerHTML = "Copy";
+            }, 1500);
+
+        }
+    </script>
 </body>
+
 </html>

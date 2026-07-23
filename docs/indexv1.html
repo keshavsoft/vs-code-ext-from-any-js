@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VS Code Generator Documentation</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+            font-family:Segoe UI,Arial,sans-serif;
+            background:#0f172a;
+            color:#e2e8f0;
+            min-height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+
+        .container{
+            width:90%;
+            max-width:1100px;
+            text-align:center;
+        }
+
+        h1{
+            color:#38bdf8;
+            margin-bottom:15px;
+            font-size:42px;
+        }
+
+        .subtitle{
+            color:#cbd5e1;
+            margin-bottom:50px;
+            font-size:18px;
+        }
+
+        .cards{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+            gap:30px;
+        }
+
+        .card{
+            background:#020617;
+            border:1px solid #1e293b;
+            border-radius:18px;
+            padding:35px;
+            cursor:pointer;
+            transition:.3s;
+            text-align:left;
+        }
+
+        .card:hover{
+            transform:translateY(-8px);
+            border-color:#38bdf8;
+            box-shadow:0 15px 40px rgba(56,189,248,.25);
+        }
+
+        .icon{
+            font-size:50px;
+            margin-bottom:20px;
+        }
+
+        h2{
+            color:#38bdf8;
+            margin-bottom:15px;
+        }
+
+        p{
+            color:#cbd5e1;
+            line-height:1.7;
+        }
+
+        .btn{
+            display:inline-block;
+            margin-top:25px;
+            color:white;
+            background:#0284c7;
+            padding:12px 22px;
+            border-radius:8px;
+            text-decoration:none;
+            font-weight:bold;
+        }
+
+        .btn:hover{
+            background:#0369a1;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>VS Code Generator Documentation</h1>
+
+    <p class="subtitle">
+        Select the documentation you want to explore.
+    </p>
+
+    <div class="cards">
+
+        <div class="card" onclick="location.href='backend.html'">
+            <div class="icon">🚀</div>
+
+            <h2>Backend Documentation</h2>
+
+            <p>
+                Learn how to generate Express.js APIs, endpoint folders,
+                routes, table-based endpoints, and automate backend setup
+                directly from Visual Studio Code.
+            </p>
+
+            <a class="btn" href="backEnd.html">Open Backend</a>
+        </div>
+
+        <div class="card" onclick="location.href='frontend.html'">
+            <div class="icon">🎨</div>
+
+            <h2>Frontend Documentation</h2>
+
+            <p>
+                Learn how to generate frontend boilerplates, CRUD projects,
+                reusable HTML modules, listener files, and HTML ID-based
+                components using the VS Code extension.
+            </p>
+
+            <a class="btn" href="frontEnd.html">Open Frontend</a>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
