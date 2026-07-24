@@ -189,16 +189,10 @@
             letter-spacing: .02em;
         }
 
-        .repo a {
-            color: #ffffff;
-            text-decoration: none;
+        .repo {
+            color: var(--muted);
             font-size: 14px;
             word-break: break-all;
-        }
-
-        .repo a:hover {
-            color: #ffffff;
-            text-decoration: none;
         }
 
         .footer {
@@ -272,31 +266,28 @@
 <body>
     <div class="wrap">
         <div class="topbar">
-            <div class="brand">vs-code-ext-from-any-js Documentation</div>
-            <div class="repo">
-                <a href="https://github.com/keshavsoft/vs-code-ext-from-any-js" target="_blank">
-                    https://github.com/keshavsoft/vs-code-ext-from-any-js.git
-                </a>
-            </div>
+            <div class="brand">VS Code Generator Documentation</div>
+            <div class="repo">keshavsoft/vs-code-ext-from-any-js</div>
         </div>
 
         <section class="hero">
             <div class="tag">Choose a section</div>
-            <!-- <h1>vs-code-ext-from-any-js Documentation</h1> -->
+            <h1>vs-code-ext-from-any-js Documentation</h1>
             <p>
                 Select Backend or Frontend to open a dedicated HTML page with command details,
                 workflow, and examples.
             </p>
         </section>
+        <label for="">clone</label>
 
-        <!-- <div class="copy-box">
+        <div class="copy-box">
             <input id="cloneUrl" value="https://github.com/keshavsoft/vs-code-ext-from-any-js.git" readonly>
 
             <button onclick="copyGit()">
                 Copy
             </button>
 
-        </div> -->
+        </div>
 
         <section class="grid">
             <div class="card" onclick="location.href='backEnd.html'">
@@ -314,8 +305,6 @@
                     <span class="chip">StartEndPoint</span>
                     <span class="chip">AddTableName</span>
                     <span class="chip">AddTableNameHtml</span>
-                    <span class="chip">getMethod</span>
-                    <span class="chip">postMethod</span>
                 </div>
 
                 <a class="open" href="backEnd.html">Open Backend <span>→</span></a>
