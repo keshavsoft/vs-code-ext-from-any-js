@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NPM Dependency Tree | vs-code-ext-from-any-js</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-dark: #070a13;
+      --bg-card: #0d1222;
+      --border-color: #1e293b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #38bdf8;
+      --primary-gradient: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+      --accent-green: #34d399;
+      --accent-violet: #a78bfa;
+      --font-outfit: 'Outfit', sans-serif;
+      --font-inter: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-inter);
+      line-height: 1.6;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.04) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(129, 140, 248, 0.05) 0%, transparent 50%);
+      padding-bottom: 80px;
+    }
+
+    /* Navbar */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 8%;
+      border-bottom: 1px solid var(--border-color);
+      background: rgba(7, 10, 19, 0.85);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav .logo {
+      font-family: var(--font-outfit);
+      font-weight: 800;
+      font-size: 1.3rem;
+      letter-spacing: -0.5px;
+      text-decoration: none;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 30px;
+    }
+
+    nav ul li a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      color: var(--primary);
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 50px auto 0 auto;
+      padding: 0 4%;
+    }
+
+    /* Header */
+    header {
+      margin-bottom: 40px;
+    }
+
+    header h1 {
+      font-family: var(--font-outfit);
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+
+    header h1 span {
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    /* Workspace */
+    .workspace {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    /* Controls */
+    .controls {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 25px;
+      align-items: center;
+    }
+
+    .search-box {
+      flex-grow: 1;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px 16px 12px 40px;
+      color: var(--text-main);
+      font-family: var(--font-inter);
+      font-size: 0.95rem;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .search-box input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.15);
+    }
+
+    .search-box::before {
+      content: "🔍";
+      position: absolute;
+      left: 14px;
+      top: 12px;
+      font-size: 0.95rem;
+      opacity: 0.6;
+    }
+
+    .btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      border-color: var(--primary);
+      background: rgba(56, 189, 248, 0.05);
+    }
+
+    /* Visualizer Card */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Dependency Tree */
+    .dep-tree-container {
+      overflow-x: auto;
+      padding-top: 10px;
+    }
+
+    .dep-tree, .dep-tree ul {
+      list-style-type: none;
+      position: relative;
+    }
+
+    .dep-tree ul {
+      padding-left: 36px;
+      margin-top: 8px;
+      border-left: 1px dashed rgba(56, 189, 248, 0.2);
+    }
+
+    .dep-tree li {
+      margin: 12px 0;
+      position: relative;
+    }
+
+    /* Horizontal branch connector line */
+    .dep-tree li::before {
+      content: "";
+      position: absolute;
+      top: 20px;
+      left: -36px;
+      width: 28px;
+      height: 1px;
+      border-bottom: 1px dashed rgba(56, 189, 248, 0.2);
+    }
+
+    /* Node Style */
+    .dep-node {
+      background: #05070d;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 10px 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .dep-node:hover {
+      border-color: var(--primary);
+      box-shadow: 0 4px 15px rgba(56, 189, 248, 0.1);
+      transform: translateY(-1px);
+    }
+
+    .dep-node.active-node {
+      border-color: var(--primary);
+      background: rgba(56, 189, 248, 0.05);
+    }
+
+    .dep-node.highlighted {
+      border-color: var(--accent-green);
+      box-shadow: 0 0 15px rgba(52, 211, 153, 0.3);
+      background: rgba(52, 211, 153, 0.05);
+    }
+
+    .node-icon {
+      font-size: 0.95rem;
+      transition: transform 0.2s ease;
+    }
+
+    .expanded .node-icon {
+      transform: rotate(90deg);
+    }
+
+    .node-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .node-version {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Badges */
+    .badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-root {
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--primary);
+    }
+
+    .badge-dedup {
+      background: rgba(167, 139, 250, 0.15);
+      color: var(--accent-violet);
+    }
+
+    .badge-transitive {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-muted);
+      border: 1px solid var(--border-color);
+    }
+
+    /* Sidebar Detail Panel */
+    .detail-panel {
+      position: sticky;
+      top: 100px;
+    }
+
+    .detail-panel h3 {
+      font-family: var(--font-outfit);
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 10px;
+    }
+
+    .info-row {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+
+    .info-row label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .info-row div {
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    .info-mono {
+      font-family: var(--font-mono);
+      background: #05070d;
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      display: inline-block;
+      font-size: 0.85rem !important;
+    }
+
+    .info-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .npm-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #cb3837; /* npm red */
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: opacity 0.2s ease;
+      margin-top: 15px;
+    }
+
+    .npm-link:hover {
+      opacity: 0.9;
+    }
+
+    /* Back link button */
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-bottom: 25px;
+      transition: color 0.2s ease;
+    }
+
+    .back-btn:hover {
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <a href="index.html" class="logo">vs-code-ext-from-any-js</a>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="backEnd.html">Backend Docs</a></li>
+      <li><a href="frontEnd.html">Frontend Docs</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    
+    <a href="index.html" class="back-btn">← Back to Developer Hub</a>
+
+    <header>
+      <h1>NPM Dependency <span>Tree Visualizer</span></h1>
+      <p>A full breakdown of packages required to run the Any JS VS Code Extension. Click a dependency to inspect details.</p>
+    </header>
+
+    <div class="workspace">
+      
+      <!-- Visual Tree Column -->
+      <div>
+        <div class="controls">
+          <div class="search-box">
+            <input type="text" id="search-input" placeholder="Search dependency name...">
+          </div>
+          <button class="btn" id="btn-toggle-all">Collapse All</button>
+        </div>
+
+        <div class="card">
+          <div class="dep-tree-container">
+            <ul class="dep-tree">
+              <li>
+  <div class="dep-node active-node" id="root-node" data-pkg="vs-code-ext-from-any-js" data-version="1.16.1" data-desc="start from any js, and hook foldes">
+    <span class="node-icon">▼</span>
+    <span class="node-name">vs-code-ext-from-any-js</span>
+    <span class="node-version">@1.16.1</span>
+    <span class="badge badge-root">root</span>
+  </div>
+<ul id="root-branches">
+  <li>
+    <div class="dep-node" data-pkg="json-crud-ui-init" data-version="1.9.10" data-desc="ui boilerplate code in public folder, with html and js">
+      
+      <span class="node-name">json-crud-ui-init</span>
+      <span class="node-version">@1.9.10</span>
+      
+    </div>
+  </li>
+  <li>
+    <div class="dep-node" data-pkg="kschema-api-gen-appjs" data-version="1.9.2" data-desc="CLI to build for appjs, the endpoints">
+      <span class="node-icon">▼</span>
+      <span class="node-name">kschema-api-gen-appjs</span>
+      <span class="node-version">@1.9.2</span>
+      
+    </div>
+  <ul>
+    <li>
+      <div class="dep-node" data-pkg="express-fix-app-js" data-version="1.3.3" data-desc="CLI to build for appjs, the endpoints">
+        <span class="node-icon">▼</span>
+        <span class="node-name">express-fix-app-js</span>
+        <span class="node-version">@1.3.3</span>
+        <span class="badge badge-transitive">transitive</span>
+      </div>
+    <ul>
+      <li>
+        <div class="dep-node" data-pkg="express-fix-any-js" data-version="1.8.4" data-desc="CLI to build for appjs, the endpoints">
+          <span class="node-icon">▼</span>
+          <span class="node-name">express-fix-any-js</span>
+          <span class="node-version">@1.8.4</span>
+          <span class="badge badge-transitive">transitive</span>
+        </div>
+      <ul>
+        <li>
+          <div class="dep-node" data-pkg="express-check-any-for-import" data-version="1.4.7" data-desc="CLI to build for appjs, the endpoints">
+            
+            <span class="node-name">express-check-any-for-import</span>
+            <span class="node-version">@1.4.7</span>
+            <span class="badge badge-transitive">transitive</span>
+          </div>
+        </li>
+      </ul>
+      </li>
+    </ul>
+    </li>
+  </ul>
+  </li>
+  <li>
+    <div class="dep-node" data-pkg="kschema-api-gen-endpointsjs" data-version="1.7.4" data-desc="CLI to build for endpointsjs, the table name, DataPath and configpath">
+      <span class="node-icon">▼</span>
+      <span class="node-name">kschema-api-gen-endpointsjs</span>
+      <span class="node-version">@1.7.4</span>
+      
+    </div>
+  <ul>
+    <li>
+      <div class="dep-node" data-pkg="express-fix-routes-js" data-version="1.2.1" data-desc="CLI to build for appjs, the endpoints">
+        <span class="node-icon">▼</span>
+        <span class="node-name">express-fix-routes-js</span>
+        <span class="node-version">@1.2.1</span>
+        <span class="badge badge-transitive">transitive</span>
+      </div>
+    <ul>
+      <li>
+        <div class="dep-node" data-pkg="express-fix-any-js" data-version="1.8.4" data-desc="CLI to build for appjs, the endpoints">
+          
+          <span class="node-name">express-fix-any-js</span>
+          <span class="node-version">@1.8.4</span>
+          <span class="badge badge-dedup">deduped</span>
+        </div>
+      </li>
+    </ul>
+    </li>
+  </ul>
+  </li>
+  <li>
+    <div class="dep-node" data-pkg="kschema-fs-api-gen-get-actions" data-version="1.10.2" data-desc="start from end points js, generate post methods">
+      <span class="node-icon">▼</span>
+      <span class="node-name">kschema-fs-api-gen-get-actions</span>
+      <span class="node-version">@1.10.2</span>
+      
+    </div>
+  <ul>
+    <li>
+      <div class="dep-node" data-pkg="express-fix-endpoints-get-js" data-version="1.5.11" data-desc="CLI to build for appjs, the endpoints">
+        <span class="node-icon">▼</span>
+        <span class="node-name">express-fix-endpoints-get-js</span>
+        <span class="node-version">@1.5.11</span>
+        <span class="badge badge-transitive">transitive</span>
+      </div>
+    <ul>
+      <li>
+        <div class="dep-node" data-pkg="express-fix-any-js" data-version="1.8.4" data-desc="CLI to build for appjs, the endpoints">
+          
+          <span class="node-name">express-fix-any-js</span>
+          <span class="node-version">@1.8.4</span>
+          <span class="badge badge-dedup">deduped</span>
+        </div>
+      </li>
+    </ul>
+    </li>
+    <li>
+      <div class="dep-node" data-pkg="kschema-fs-api-gen-rest" data-version="1.8.6" data-desc="create rest client to test from http file, config supplied">
+        
+        <span class="node-name">kschema-fs-api-gen-rest</span>
+        <span class="node-version">@1.8.6</span>
+        <span class="badge badge-transitive">transitive</span>
+      </div>
+    </li>
+  </ul>
+  </li>
+  <li>
+    <div class="dep-node" data-pkg="kschema-fs-api-gen-post-actions" data-version="1.19.9" data-desc="start from end points js, generate post methods">
+      <span class="node-icon">▼</span>
+      <span class="node-name">kschema-fs-api-gen-post-actions</span>
+      <span class="node-version">@1.19.9</span>
+      
+    </div>
+  <ul>
+    <li>
+      <div class="dep-node" data-pkg="kschema-fs-api-gen-rest" data-version="1.8.6" data-desc="create rest client to test from http file, config supplied">
+        
+        <span class="node-name">kschema-fs-api-gen-rest</span>
+        <span class="node-version">@1.8.6</span>
+        <span class="badge badge-dedup">deduped</span>
+      </div>
+    </li>
+    <li>
+      <div class="dep-node" data-pkg="express-fix-endpoints-post-js" data-version="1.3.4" data-desc="CLI to build for appjs, the endpoints">
+        <span class="node-icon">▼</span>
+        <span class="node-name">express-fix-endpoints-post-js</span>
+        <span class="node-version">@1.3.4</span>
+        <span class="badge badge-transitive">transitive</span>
+      </div>
+    <ul>
+      <li>
+        <div class="dep-node" data-pkg="express-fix-any-js" data-version="1.8.4" data-desc="CLI to build for appjs, the endpoints">
+          
+          <span class="node-name">express-fix-any-js</span>
+          <span class="node-version">@1.8.4</span>
+          <span class="badge badge-dedup">deduped</span>
+        </div>
+      </li>
+    </ul>
+    </li>
+  </ul>
+  </li>
+  <li>
+    <div class="dep-node" data-pkg="kschema-fs-read-config" data-version="1.4.8" data-desc="read the env file to arrive the location of schemas in config">
+      <span class="node-icon">▼</span>
+      <span class="node-name">kschema-fs-read-config</span>
+      <span class="node-version">@1.4.8</span>
+      
+    </div>
+  <ul>
+    <li>
+      <div class="dep-node" data-pkg="dotenv" data-version="17.4.2" data-desc="Loads environment variables from .env file">
+        
+        <span class="node-name">dotenv</span>
+        <span class="node-version">@17.4.2</span>
+        <span class="badge badge-transitive">transitive</span>
+      </div>
+    </li>
+  </ul>
+  </li>
+  <li>
+    <div class="dep-node" data-pkg="kschema-fs-ui-alter-config" data-version="1.5.2" data-desc="find the json files in ui, and insert column config">
+      <span class="node-icon">▼</span>
+      <span class="node-name">kschema-fs-ui-alter-config</span>
+      <span class="node-version">@1.5.2</span>
+      
+    </div>
+  <ul>
+    <li>
+      <div class="dep-node" data-pkg="kschema-fs-read-config" data-version="1.4.8" data-desc="read the env file to arrive the location of schemas in config">
+        
+        <span class="node-name">kschema-fs-read-config</span>
+        <span class="node-version">@1.4.8</span>
+        <span class="badge badge-dedup">deduped</span>
+      </div>
+    </li>
+  </ul>
+  </li>
+  <li>
+    <div class="dep-node" data-pkg="kschema-ui-hook-add-listeners" data-version="1.5.3" data-desc="CLI to build for endpointsjs, the table name, DataPath and configpath">
+      <span class="node-icon">▼</span>
+      <span class="node-name">kschema-ui-hook-add-listeners</span>
+      <span class="node-version">@1.5.3</span>
+      
+    </div>
+  <ul>
+    <li>
+      <div class="dep-node" data-pkg="express-fix-routes-js" data-version="1.2.1" data-desc="CLI to build for appjs, the endpoints">
+        
+        <span class="node-name">express-fix-routes-js</span>
+        <span class="node-version">@1.2.1</span>
+        <span class="badge badge-dedup">deduped</span>
+      </div>
+    </li>
+    <li>
+      <div class="dep-node" data-pkg="ui-fix-add-listeners-js" data-version="1.3.5" data-desc="ui hook html id to add listeners file">
+        <span class="node-icon">▼</span>
+        <span class="node-name">ui-fix-add-listeners-js</span>
+        <span class="node-version">@1.3.5</span>
+        <span class="badge badge-transitive">transitive</span>
+      </div>
+    <ul>
+      <li>
+        <div class="dep-node" data-pkg="express-fix-any-js" data-version="1.8.4" data-desc="CLI to build for appjs, the endpoints">
+          
+          <span class="node-name">express-fix-any-js</span>
+          <span class="node-version">@1.8.4</span>
+          <span class="badge badge-dedup">deduped</span>
+        </div>
+      </li>
+    </ul>
+    </li>
+  </ul>
+  </li>
+  <li>
+    <div class="dep-node" data-pkg="pattern-collector-appjs-use-extract" data-version="1.2.1" data-desc="A high-performance pattern collector and ESM import statement analyzer.">
+      <span class="node-icon">▼</span>
+      <span class="node-name">pattern-collector-appjs-use-extract</span>
+      <span class="node-version">@1.2.1</span>
+      
+    </div>
+  <ul>
+    <li>
+      <div class="dep-node" data-pkg="pattern-collector-appjs-use" data-version="1.2.6" data-desc="A high-performance pattern collector and ESM import statement analyzer.">
+        <span class="node-icon">▼</span>
+        <span class="node-name">pattern-collector-appjs-use</span>
+        <span class="node-version">@1.2.6</span>
+        <span class="badge badge-transitive">transitive</span>
+      </div>
+    <ul>
+      <li>
+        <div class="dep-node" data-pkg="pattern-collector" data-version="1.3.8" data-desc="A high-performance pattern collector and ESM import statement analyzer.">
+          
+          <span class="node-name">pattern-collector</span>
+          <span class="node-version">@1.3.8</span>
+          <span class="badge badge-transitive">transitive</span>
+        </div>
+      </li>
+    </ul>
+    </li>
+  </ul>
+  </li>
+  <li>
+    <div class="dep-node" data-pkg="pattern-collector-routesjs-import-extract" data-version="1.2.2" data-desc="A high-performance pattern collector and ESM import statement analyzer.">
+      <span class="node-icon">▼</span>
+      <span class="node-name">pattern-collector-routesjs-import-extract</span>
+      <span class="node-version">@1.2.2</span>
+      
+    </div>
+  <ul>
+    <li>
+      <div class="dep-node" data-pkg="pattern-collector-routesjs-import" data-version="1.2.3" data-desc="A high-performance pattern collector and ESM import statement analyzer.">
+        <span class="node-icon">▼</span>
+        <span class="node-name">pattern-collector-routesjs-import</span>
+        <span class="node-version">@1.2.3</span>
+        <span class="badge badge-transitive">transitive</span>
+      </div>
+    <ul>
+      <li>
+        <div class="dep-node" data-pkg="pattern-collector" data-version="1.3.8" data-desc="A high-performance pattern collector and ESM import statement analyzer.">
+          
+          <span class="node-name">pattern-collector</span>
+          <span class="node-version">@1.3.8</span>
+          <span class="badge badge-dedup">deduped</span>
+        </div>
+      </li>
+    </ul>
+    </li>
+  </ul>
+  </li>
+</ul>
+</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Detail Card Column -->
+      <div class="detail-panel card">
+        <h3 id="detail-title">Package Info</h3>
+        
+        <div class="info-row">
+          <label>Package Name</label>
+          <div id="detail-name" style="font-weight:700; font-size:1.15rem;">vs-code-ext-from-any-js</div>
+        </div>
+
+        <div class="info-row">
+          <label>Version Constraint</label>
+          <div class="info-mono" id="detail-version">1.16.1</div>
+        </div>
+
+        <div class="info-row">
+          <label>Description</label>
+          <div class="info-desc" id="detail-desc">
+            start from any js, and hook foldes
+          </div>
+        </div>
+
+        <div class="info-row" style="margin-top: 30px;">
+          <label>Registry Page</label>
+          <div>
+            <a href="https://www.npmjs.com/package/vs-code-ext-from-any-js" target="_blank" class="npm-link" id="detail-npm-link">
+              View on npmjs.com
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    // Collapse/Expand functionality
+    const treeNodes = document.querySelectorAll('.dep-node');
+    const searchInput = document.getElementById('search-input');
+    const toggleAllBtn = document.getElementById('btn-toggle-all');
+    
+    // Panel Details elements
+    const detailName = document.getElementById('detail-name');
+    const detailVersion = document.getElementById('detail-version');
+    const detailDesc = document.getElementById('detail-desc');
+    const detailNpmLink = document.getElementById('detail-npm-link');
+
+    // Click to view package details
+    treeNodes.forEach(node => {
+      // Setup expand status
+      const siblingUl = node.nextElementSibling;
+      if (siblingUl && siblingUl.tagName === 'UL') {
+        node.classList.add('expanded');
+      }
+
+      node.addEventListener('click', (e) => {
+        // Toggle Active state style
+        treeNodes.forEach(n => n.classList.remove('active-node'));
+        node.classList.add('active-node');
+
+        // Update side panel info
+        const pkgName = node.getAttribute('data-pkg');
+        const pkgVer = node.getAttribute('data-version');
+        const pkgDesc = node.getAttribute('data-desc');
+
+        detailName.textContent = pkgName;
+        detailVersion.textContent = pkgVer;
+        detailDesc.textContent = pkgDesc || 'No description provided.';
+        detailNpmLink.setAttribute('href', `https://www.npmjs.com/package/${pkgName}`);
+
+        // Toggle visibility of children if clicked on the icon specifically
+        if (e.target.classList.contains('node-icon')) {
+          toggleNode(node);
+        }
+      });
+    });
+
+    function toggleNode(node) {
+      const siblingUl = node.nextElementSibling;
+      if (siblingUl && siblingUl.tagName === 'UL') {
+        if (siblingUl.style.display === 'none') {
+          siblingUl.style.display = 'block';
+          node.classList.add('expanded');
+          node.querySelector('.node-icon').textContent = '▼';
+        } else {
+          siblingUl.style.display = 'none';
+          node.classList.remove('expanded');
+          node.querySelector('.node-icon').textContent = '▶';
+        }
+      }
+    }
+
+    // Toggle All button
+    let allCollapsed = false;
+    toggleAllBtn.addEventListener('click', () => {
+      allCollapsed = !allCollapsed;
+      treeNodes.forEach(node => {
+        const siblingUl = node.nextElementSibling;
+        const icon = node.querySelector('.node-icon');
+        if (siblingUl && siblingUl.tagName === 'UL') {
+          if (allCollapsed) {
+            siblingUl.style.display = 'none';
+            node.classList.remove('expanded');
+            if (icon) icon.textContent = '▶';
+          } else {
+            siblingUl.style.display = 'block';
+            node.classList.add('expanded');
+            if (icon) icon.textContent = '▼';
+          }
+        }
+      });
+      toggleAllBtn.textContent = allCollapsed ? 'Expand All' : 'Collapse All';
+    });
+
+    // Realtime search and highlight
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase().trim();
+      
+      treeNodes.forEach(node => {
+        const pkgName = node.getAttribute('data-pkg').toLowerCase();
+        
+        if (query !== '' && pkgName.includes(query)) {
+          node.classList.add('highlighted');
+          
+          // Expand all parents of highlighted node
+          let parentUl = node.parentElement.parentElement;
+          while (parentUl && parentUl.tagName === 'UL') {
+            parentUl.style.display = 'block';
+            const parentNode = parentUl.previousElementSibling;
+            if (parentNode && parentNode.classList.contains('dep-node')) {
+              parentNode.classList.add('expanded');
+              const icon = parentNode.querySelector('.node-icon');
+              if (icon) icon.textContent = '▼';
+            }
+            parentUl = parentNode ? parentNode.parentElement.parentElement : null;
+          }
+        } else {
+          node.classList.remove('highlighted');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
