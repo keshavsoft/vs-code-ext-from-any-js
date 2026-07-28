@@ -140,7 +140,7 @@
     "json-crud-ui-init": "^1.9.10",
     "kschema-api-gen-appjs": "^1.9.2",
     "kschema-api-gen-endpointsjs": "^1.8.2",
-    "kschema-build-endpoints": "^1.4.5",
+    "kschema-build-endpoints": "^1.4.6",
     "kschema-fs-api-gen-get-actions": "^1.10.2",
     "kschema-fs-api-gen-post-actions": "^1.19.9",
     "kschema-fs-read-config": "^1.4.8",
