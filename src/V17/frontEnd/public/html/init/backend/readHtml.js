@@ -12,7 +12,7 @@ const activateHtml = (context, uri) => {
         { enableScripts: true }
     );
 
-    panel.webview.html = getHtmlWithScripts();
+    panel.webview.html = getHtmlWithScripts(panel.webview);
 
     panel.webview.onDidReceiveMessage(async (message) => {
         const { userRootFolder, schemasPath, folderPath } = getWorkspaceContext(uri);

@@ -1,19 +1,19 @@
-function getSelectedTable() {
-    const tableSelect = document.getElementById("table-select");
+import { sendAction } from "./vscodeApi.js";
+import { tableSelect, endPointsSelect, folderNameInput } from "./htmlElements.js";
+
+export function getSelectedTable() {
     return tableSelect ? tableSelect.value : "";
 }
 
-function getSelectedEndPoint() {
-    const endPointsSelect = document.getElementById("endPoints-select");
+export function getSelectedEndPoint() {
     return endPointsSelect ? endPointsSelect.value : "";
 }
 
-function getFolderName(defaultValue = "") {
-    const folderInput = document.getElementById("folder-name");
-    if (folderInput) {
-        let val = folderInput.value.trim();
+export function getFolderName(defaultValue = "") {
+    if (folderNameInput) {
+        let val = folderNameInput.value.trim();
         if (!val && defaultValue) {
-            folderInput.value = defaultValue;
+            folderNameInput.value = defaultValue;
             val = defaultValue;
         }
         return val;
@@ -21,7 +21,7 @@ function getFolderName(defaultValue = "") {
     return "";
 }
 
-const showAllJson = () => {
+export const showAllJson = () => {
     const cmd = "showAllJson";
     sendAction(cmd, { 
         tableName: getSelectedTable(), 

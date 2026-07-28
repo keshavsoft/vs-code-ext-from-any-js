@@ -1,17 +1,22 @@
-function showStatus(text) {
-    const statusDiv = document.getElementById("status");
-    statusDiv.classList.remove("hidden");
-    statusDiv.innerHTML = text;
+import { statusDiv, summaryDiv } from "./htmlElements.js";
+
+export function showStatus(text) {
+    if (statusDiv) {
+        statusDiv.classList.remove("hidden");
+        statusDiv.innerHTML = text;
+    }
 }
 
-function showSummary(html) {
-    const summaryDiv = document.getElementById("summary");
-    summaryDiv.classList.remove("hidden");
-    summaryDiv.innerHTML = html;
+export function showSummary(html) {
+    if (summaryDiv) {
+        summaryDiv.classList.remove("hidden");
+        summaryDiv.innerHTML = html;
+    }
 }
 
-function completeStatus(html) {
-    const statusDiv = document.getElementById("status");
-    statusDiv.classList.add("hidden");
+export function completeStatus(html) {
+    if (statusDiv) {
+        statusDiv.classList.add("hidden");
+    }
     showSummary(html);
 }

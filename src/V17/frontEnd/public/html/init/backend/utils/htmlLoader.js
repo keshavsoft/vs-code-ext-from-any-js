@@ -1,26 +1,20 @@
+import * as vscode from 'vscode';
 import fs from 'fs';
 import path from 'path';
 
-export function getHtmlWithScripts() {
+export function getHtmlWithScripts(webview) {
     const frontendDir = path.join(import.meta.dirname, "..", "..", "frontend");
     let html = fs.readFileSync(path.join(frontendDir, "index.html"), "utf8");
 
-    const jsFiles = [
-        "vscodeApi.js",
-        "actionDispatcher.js",
-        "uiNotifier.js",
-        "main.js"
-    ];
+    const jsDirUri = webview.asWebviewUri(vscode.Uri.file(path.join(frontendDir, "js")));
+    const mainUri = `${jsDirUri}/main.js`;
 
-    const scriptTags = jsFiles.map(file => {
-        const content = fs.readFileSync(path.join(frontendDir, "js", file), "utf8");
-        return `<script>\n${content}\n</script>`;
-    }).join("\n");
+    const scriptTag = `<script type="module" src="${mainUri}"></script>`;
 
     if (html.includes("<!-- SCRIPTS -->")) {
-        html = html.replace("<!-- SCRIPTS -->", scriptTags);
+        html = html.replace("<!-- SCRIPTS -->", scriptTag);
     } else {
-        html = html.replace("</body>", `${scriptTags}\n</body>`);
+        html = html.replace("</body>", `${scriptTag}\n</body>`);
     }
 
     return html;
