@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>VS Code Express API Generator Endpoints</title>
+   <style>
+      body {
+         font-family: 'Segoe UI', Arial, sans-serif;
+         background: #0f172a;
+         color: #e2e8f0;
+         margin: 0;
+         line-height: 1.7;
+      }
+
+      .container {
+         width: 95%;
+         max-width: 1200px;
+         margin: auto;
+         padding: 30px;
+      }
+
+      .hero {
+         text-align: center;
+         padding: 60px 20px;
+      }
+
+      .hero h1 {
+         font-size: 44px;
+         color: #38bdf8;
+         margin-bottom: 20px;
+      }
+
+      .hero p {
+         font-size: 18px;
+         color: #cbd5e1;
+         max-width: 800px;
+         margin: 0 auto 20px auto;
+      }
+
+      .card {
+         background: #020617;
+         padding: 30px;
+         margin-top: 30px;
+         border-radius: 18px;
+         box-shadow: 0 6px 20px rgba(0, 0, 0, .5);
+         border: 1px solid #1e293b;
+      }
+
+      .card h2 {
+         color: #38bdf8;
+         margin-bottom: 20px;
+         border-bottom: 1px solid #1e293b;
+         padding-bottom: 10px;
+      }
+
+      .grid {
+         display: grid;
+         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+         gap: 20px;
+      }
+
+      .feature {
+         background: #0f172a;
+         padding: 20px;
+         border-radius: 12px;
+         border: 1px solid #1e293b;
+      }
+
+      .feature h3 {
+         color: #38bdf8;
+         margin-top: 0;
+         margin-bottom: 10px;
+      }
+
+      .code {
+         background: #0f172a;
+         padding: 18px;
+         border-radius: 12px;
+         margin-top: 15px;
+         font-family: Consolas, 'Courier New', monospace;
+         overflow: auto;
+         white-space: pre;
+         border: 1px solid #334155;
+         color: #38bdf8;
+      }
+
+      .badge {
+         display: inline-block;
+         background: #1e293b;
+         padding: 8px 14px;
+         border-radius: 10px;
+         margin: 5px;
+         color: #38bdf8;
+         font-weight: bold;
+      }
+
+      .step {
+         margin-bottom: 30px;
+         padding-left: 15px;
+         border-left: 3px solid #38bdf8;
+      }
+
+      .step h3 {
+         color: #f8fafc;
+         margin-bottom: 5px;
+      }
+
+      .result-block {
+         background: #1e293b;
+         padding: 15px;
+         border-radius: 8px;
+         margin-top: 10px;
+         border-left: 4px solid #10b981;
+      }
+
+      table {
+         width: 100%;
+         border-collapse: collapse;
+         margin-top: 15px;
+      }
+
+      th,
+      td {
+         text-align: left;
+         padding: 12px;
+         border: 1px solid #1e293b;
+      }
+
+      th {
+         background-color: #0f172a;
+         color: #38bdf8;
+      }
+
+      tr:nth-child(even) {
+         background-color: #0f172a;
+      }
+
+      a {
+         color: #38bdf8;
+         text-decoration: none;
+      }
+
+      a:hover {
+         text-decoration: underline;
+      }
+
+      footer {
+         text-align: center;
+         margin-top: 60px;
+         padding: 20px;
+         color: #94a3b8;
+         border-top: 1px solid #1e293b;
+      }
+
+      img {
+         width: 100%;
+         border-radius: 8px;
+         border: 1px solid #374151;
+      }
+   </style>
+</head>
+
+<body>
+   <div class="container">
+
+      <!-- ========================================================= -->
+      <!-- AddTableNameHtml Documentation -->
+      <!-- ========================================================= -->
+
+      <!-- ========================================================= -->
+      <!-- AddTableName Documentation -->
+      <!-- ========================================================= -->
+
+      <section class="workflow-intro">
+
+         <h2>🗂️ AddTableName - Documentation</h2>
+
+         <p>
+            The <strong>AddTableName</strong> feature is designed to simplify the
+            creation of database table structures within an Express.js project.
+            Instead of manually creating schema folders, writing model files, and
+            updating project configurations, the extension performs these operations
+            automatically. The generated files follow a consistent folder structure,
+            allowing developers to maintain clean and organized projects while
+            significantly reducing repetitive setup work.
+         </p>
+
+         <p>
+            When the <strong>AddTableName</strong> command is launched from the
+            Visual Studio Code title bar, the extension opens a dedicated interface
+            where the developer can select an existing API and provide the required
+            table name. This table name becomes the foundation for generating the
+            corresponding schema files and related project components. Since the
+            extension follows predefined project conventions, every generated file
+            is placed in the correct location without requiring manual intervention.
+         </p>
+
+         <p>
+            After confirming the table name, the extension automatically creates the
+            necessary folder structure and generates the required schema files. Any
+            supporting boilerplate code needed by the selected API is also produced,
+            ensuring that the new table is immediately ready for further
+            implementation. This eliminates repetitive coding while maintaining a
+            standardized architecture throughout the application.
+         </p>
+
+         <div class="result-block">
+            <strong>Generated Components</strong>
+
+            <ul>
+               <li>Database schema file</li>
+               <li>Table-specific configuration</li>
+               <li>Supporting boilerplate code</li>
+               <li>Project folder structure</li>
+               <li>Automatic integration with the selected API</li>
+            </ul>
+         </div>
+
+         <h3 style="margin-top:30px;">Workflow Summary</h3>
+
+         <table>
+            <tr>
+               <th>Stage</th>
+               <th>Description</th>
+            </tr>
+
+            <tr>
+               <td>Launch</td>
+               <td>
+                  Open the <strong>AddTableName</strong> command from the VS Code
+                  title bar.
+               </td>
+            </tr>
+
+            <tr>
+               <td>Select API</td>
+               <td>
+                  Choose the API where the new database table should be created.
+               </td>
+            </tr>
+
+            <tr>
+               <td>Enter Table Name</td>
+               <td>
+                  Provide the desired table name that will be used throughout the
+                  generated files.
+               </td>
+            </tr>
+
+            <tr>
+               <td>Automatic Generation</td>
+               <td>
+                  The extension creates schema files, supporting boilerplate, and
+                  the required folder structure automatically.
+               </td>
+            </tr>
+
+            <tr>
+               <td>Ready to Use</td>
+               <td>
+                  The generated table structure is immediately available for
+                  implementing business logic and database operations.
+               </td>
+            </tr>
+
+         </table>
+
+         <blockquote style="margin-top:25px;">
+            <strong>Result:</strong>
+            Within a few clicks, the extension creates a complete table structure,
+            generates the required schema files, and integrates everything into the
+            selected API. Developers can immediately begin implementing CRUD
+            operations without spending time on repetitive project setup.
+         </blockquote>
+
+      </section>
+
+      <section class="section" id="support">
+         <div class="section-inner">
+            <h2 class="section-title">Support and links</h2>
+            <p class="section-subtitle">Project links and the marketplace listing.</p>
+
+            <table>
+               <tr>
+                  <th>Resource</th>
+                  <th>Link</th>
+               </tr>
+               <tr>
+                  <td>GitHub Repository</td>
+                  <td>
+                     <a href="https://github.com/keshavsoft/vs-code-ext-from-any-js" target="_blank">
+                        https://github.com/keshavsoft/vs-code-ext-from-any-js
+                     </a>
+                  </td>
+               </tr>
+               <tr>
+                  <td>VS Code Marketplace</td>
+                  <td>
+                     <a href="https://marketplace.visualstudio.com/items?itemName=KeshavSoft.vs-code-ext-from-any-js"
+                        target="_blank">
+                        View Extension Marketplace Listing
+                     </a>
+                  </td>
+               </tr>
+            </table>
+
+            <div class="tag-row">
+               <span class="tag">Node.js</span>
+               <span class="tag">Express.js</span>
+               <span class="tag">VS Code Extension</span>
+               <span class="tag">Endpoint Generator</span>
+               <span class="tag">JavaScript</span>
+            </div>
+         </div>
+      </section>
+      <!-- Footer -->
+      <footer>
+         <p>Made with ❤ by KeshavSoft | Licensed under the MIT License</p>
+         <p>Happy Coding! 💻</p>
+      </footer>
+
+   </div>
+</body>
+
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>VS Code Express API Generator Endpoints</title>
+   <style>
+      body {
+         font-family: 'Segoe UI', Arial, sans-serif;
+         background: #0f172a;
+         color: #e2e8f0;
+         margin: 0;
+         line-height: 1.7;
+      }
+
+      .container {
+         width: 95%;
+         max-width: 1200px;
+         margin: auto;
+         padding: 30px;
+      }
+
+      .hero {
+         text-align: center;
+         padding: 60px 20px;
+      }
+
+      .hero h1 {
+         font-size: 44px;
+         color: #38bdf8;
+         margin-bottom: 20px;
+      }
+
+      .hero p {
+         font-size: 18px;
+         color: #cbd5e1;
+         max-width: 800px;
+         margin: 0 auto 20px auto;
+      }
+
+      .card {
+         background: #020617;
+         padding: 30px;
+         margin-top: 30px;
+         border-radius: 18px;
+         box-shadow: 0 6px 20px rgba(0, 0, 0, .5);
+         border: 1px solid #1e293b;
+      }
+
+      .card h2 {
+         color: #38bdf8;
+         margin-bottom: 20px;
+         border-bottom: 1px solid #1e293b;
+         padding-bottom: 10px;
+      }
+
+      .grid {
+         display: grid;
+         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+         gap: 20px;
+      }
+
+      .feature {
+         background: #0f172a;
+         padding: 20px;
+         border-radius: 12px;
+         border: 1px solid #1e293b;
+      }
+
+      .feature h3 {
+         color: #38bdf8;
+         margin-top: 0;
+         margin-bottom: 10px;
+      }
+
+      .code {
+         background: #0f172a;
+         padding: 18px;
+         border-radius: 12px;
+         margin-top: 15px;
+         font-family: Consolas, 'Courier New', monospace;
+         overflow: auto;
+         white-space: pre;
+         border: 1px solid #334155;
+         color: #38bdf8;
+      }
+
+      .badge {
+         display: inline-block;
+         background: #1e293b;
+         padding: 8px 14px;
+         border-radius: 10px;
+         margin: 5px;
+         color: #38bdf8;
+         font-weight: bold;
+      }
+
+      .step {
+         margin-bottom: 30px;
+         padding-left: 15px;
+         border-left: 3px solid #38bdf8;
+      }
+
+      .step h3 {
+         color: #f8fafc;
+         margin-bottom: 5px;
+      }
+
+      .result-block {
+         background: #1e293b;
+         padding: 15px;
+         border-radius: 8px;
+         margin-top: 10px;
+         border-left: 4px solid #10b981;
+      }
+
+      table {
+         width: 100%;
+         border-collapse: collapse;
+         margin-top: 15px;
+      }
+
+      th,
+      td {
+         text-align: left;
+         padding: 12px;
+         border: 1px solid #1e293b;
+      }
+
+      th {
+         background-color: #0f172a;
+         color: #38bdf8;
+      }
+
+      tr:nth-child(even) {
+         background-color: #0f172a;
+      }
+
+      a {
+         color: #38bdf8;
+         text-decoration: none;
+      }
+
+      a:hover {
+         text-decoration: underline;
+      }
+
+      footer {
+         text-align: center;
+         margin-top: 60px;
+         padding: 20px;
+         color: #94a3b8;
+         border-top: 1px solid #1e293b;
+      }
+
+      img {
+         width: 100%;
+         border-radius: 8px;
+         border: 1px solid #374151;
+      }
+   </style>
+</head>
+
+<body>
+   <div class="container">
+
+      <!-- ========================================================= -->
+      <!-- PostMethod Documentation -->
+      <!-- ========================================================= -->
+
+      <section class="workflow-intro">
+
+         <h2>📤 PostMethod</h2>
+
+         <p class="lead">
+            The <strong>PostMethod</strong> feature automates the creation of a POST
+            API endpoint within an Express.js project. Instead of manually writing
+            route definitions, controller methods, service logic, and request
+            handling code, the extension generates a complete POST endpoint based on
+            the selected API and table name. This standardized approach reduces
+            repetitive coding while ensuring that every endpoint follows the same
+            project architecture and coding conventions.
+         </p>
+
+         <p>
+            When the <strong>PostMethod</strong> command is launched from the Visual
+            Studio Code Title Bar, the extension displays the available APIs in the
+            current project. After selecting the desired API, the developer provides
+            the table name for which the POST operation should be created. The
+            extension uses this information to determine the appropriate location
+            for generating the required files and integrating them into the existing
+            project structure.
+         </p>
+
+         <p>
+            Once the generation process begins, the extension automatically creates
+            the POST route, controller function, service method, and supporting
+            boilerplate code required to process incoming HTTP POST requests. The
+            generated components are interconnected according to the project's
+            architecture, allowing client requests to flow seamlessly from the API
+            endpoint through the controller and service layers. All generated files
+            follow the project's naming conventions and folder organization,
+            ensuring consistency across every module.
+         </p>
+
+         <p>
+            The generated POST endpoint provides a solid foundation for implementing
+            record creation and data persistence logic. Developers can immediately
+            add validation, database operations, business rules, or external service
+            integrations without spending time on repetitive project setup. By
+            automating endpoint generation, the extension improves productivity,
+            reduces manual errors, and accelerates backend development.
+         </p>
+
+         <div class="workflow-box">
+
+            <h3>Workflow Summary</h3>
+
+            <ul>
+               <li>Launch the <strong>PostMethod</strong> command from the VS Code Title Bar.</li>
+               <li>Select the API where the POST endpoint should be generated.</li>
+               <li>Choose or enter the required post method name.</li>
+               <li>The extension automatically generates the POST route, controller, and service.</li>
+               <li>The generated endpoint is integrated into the existing project architecture.</li>
+               <li>The API is immediately ready for implementing data insertion and business logic.</li>
+            </ul>
+
+         </div>
+
+         <blockquote>
+            <strong>Result:</strong> The extension generates a fully configured POST
+            endpoint with the required route, controller, and service
+            implementation. Developers can immediately focus on request validation,
+            database insertion, and business logic instead of manually creating
+            boilerplate code.
+         </blockquote>
+
+      </section>
+      <section class="section" id="support">
+         <div class="section-inner">
+            <h2 class="section-title">Support and links</h2>
+            <p class="section-subtitle">Project links and the marketplace listing.</p>
+
+            <table>
+               <tr>
+                  <th>Resource</th>
+                  <th>Link</th>
+               </tr>
+               <tr>
+                  <td>GitHub Repository</td>
+                  <td>
+                     <a href="https://github.com/keshavsoft/vs-code-ext-from-any-js" target="_blank">
+                        https://github.com/keshavsoft/vs-code-ext-from-any-js
+                     </a>
+                  </td>
+               </tr>
+               <tr>
+                  <td>VS Code Marketplace</td>
+                  <td>
+                     <a href="https://marketplace.visualstudio.com/items?itemName=KeshavSoft.vs-code-ext-from-any-js"
+                        target="_blank">
+                        View Extension Marketplace Listing
+                     </a>
+                  </td>
+               </tr>
+            </table>
+
+            <div class="tag-row">
+               <span class="tag">Node.js</span>
+               <span class="tag">Express.js</span>
+               <span class="tag">VS Code Extension</span>
+               <span class="tag">Endpoint Generator</span>
+               <span class="tag">JavaScript</span>
+            </div>
+         </div>
+      </section>
+
+      <!-- Footer -->
+      <footer>
+         <p>Made with ❤ by KeshavSoft | Licensed under the MIT License</p>
+         <p>Happy Coding! 💻</p>
+      </footer>
+
+   </div>
+</body>
+
+</html>
