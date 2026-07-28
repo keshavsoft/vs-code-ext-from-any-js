@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>VS Code Express API Generator Endpoints</title>
+   <style>
+      body {
+         font-family: 'Segoe UI', Arial, sans-serif;
+         background: #0f172a;
+         color: #e2e8f0;
+         margin: 0;
+         line-height: 1.7;
+      }
+
+      .container {
+         width: 95%;
+         max-width: 1200px;
+         margin: auto;
+         padding: 30px;
+      }
+
+      .hero {
+         text-align: center;
+         padding: 60px 20px;
+      }
+
+      .hero h1 {
+         font-size: 44px;
+         color: #38bdf8;
+         margin-bottom: 20px;
+      }
+
+      .hero p {
+         font-size: 18px;
+         color: #cbd5e1;
+         max-width: 800px;
+         margin: 0 auto 20px auto;
+      }
+
+      .card {
+         background: #020617;
+         padding: 30px;
+         margin-top: 30px;
+         border-radius: 18px;
+         box-shadow: 0 6px 20px rgba(0, 0, 0, .5);
+         border: 1px solid #1e293b;
+      }
+
+      .card h2 {
+         color: #38bdf8;
+         margin-bottom: 20px;
+         border-bottom: 1px solid #1e293b;
+         padding-bottom: 10px;
+      }
+
+      .grid {
+         display: grid;
+         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+         gap: 20px;
+      }
+
+      .feature {
+         background: #0f172a;
+         padding: 20px;
+         border-radius: 12px;
+         border: 1px solid #1e293b;
+      }
+
+      .feature h3 {
+         color: #38bdf8;
+         margin-top: 0;
+         margin-bottom: 10px;
+      }
+
+      .code {
+         background: #0f172a;
+         padding: 18px;
+         border-radius: 12px;
+         margin-top: 15px;
+         font-family: Consolas, 'Courier New', monospace;
+         overflow: auto;
+         white-space: pre;
+         border: 1px solid #334155;
+         color: #38bdf8;
+      }
+
+      .badge {
+         display: inline-block;
+         background: #1e293b;
+         padding: 8px 14px;
+         border-radius: 10px;
+         margin: 5px;
+         color: #38bdf8;
+         font-weight: bold;
+      }
+
+      .step {
+         margin-bottom: 30px;
+         padding-left: 15px;
+         border-left: 3px solid #38bdf8;
+      }
+
+      .step h3 {
+         color: #f8fafc;
+         margin-bottom: 5px;
+      }
+
+      .result-block {
+         background: #1e293b;
+         padding: 15px;
+         border-radius: 8px;
+         margin-top: 10px;
+         border-left: 4px solid #10b981;
+      }
+
+      table {
+         width: 100%;
+         border-collapse: collapse;
+         margin-top: 15px;
+      }
+
+      th,
+      td {
+         text-align: left;
+         padding: 12px;
+         border: 1px solid #1e293b;
+      }
+
+      th {
+         background-color: #0f172a;
+         color: #38bdf8;
+      }
+
+      tr:nth-child(even) {
+         background-color: #0f172a;
+      }
+
+      a {
+         color: #38bdf8;
+         text-decoration: none;
+      }
+
+      a:hover {
+         text-decoration: underline;
+      }
+
+      footer {
+         text-align: center;
+         margin-top: 60px;
+         padding: 20px;
+         color: #94a3b8;
+         border-top: 1px solid #1e293b;
+      }
+
+      img {
+         width: 100%;
+         border-radius: 8px;
+         border: 1px solid #374151;
+      }
+   </style>
+</head>
+
+<body>
+   <div class="container">
+
+      <!-- ========================================================= -->
+      <!-- GetMethod Documentation -->
+      <!-- ========================================================= -->
+
+      <section class="workflow-intro">
+
+         <h2>📥 GetMethod</h2>
+
+         <p class="lead">
+            The <strong>GetMethod</strong> feature automates the creation of a GET
+            API endpoint within an Express.js project. Rather than manually creating
+            route definitions, controller methods, service logic, and API
+            registration, the extension generates the required boilerplate code
+            based on the selected API and table name. This ensures every GET
+            endpoint follows a consistent project architecture while significantly
+            reducing development time.
+         </p>
+
+         <p>
+            When the <strong>GetMethod</strong> command is launched from the Visual
+            Studio Code Title Bar, the extension displays the available APIs that
+            have already been created in the project. After selecting the desired
+            API, the developer provides the table name for which the GET operation
+            should be generated. The extension uses this information to identify the
+            correct project location and automatically prepares all required files.
+         </p>
+
+         <p>
+            Once the generation process begins, the extension creates the necessary
+            route definition, controller function, service method, and supporting
+            boilerplate code required to handle the GET request. It also establishes
+            the connection between these layers so that incoming HTTP requests are
+            correctly routed from the endpoint to the service implementation. The
+            generated code follows the project's naming conventions and folder
+            structure, ensuring consistency across every API module.
+         </p>
+
+         <p>
+            The generated GET endpoint serves as a foundation for implementing data
+            retrieval logic. Developers can immediately begin writing database
+            queries, applying business rules, or integrating external services
+            without spending additional time creating project scaffolding. Since the
+            extension automates the repetitive setup process, it improves developer
+            productivity while minimizing manual configuration errors.
+         </p>
+
+         <div class="workflow-box">
+
+            <h3>Workflow Summary</h3>
+
+            <ul>
+               <li>Launch the <strong>GetMethod</strong> command from the VS Code Title Bar.</li>
+               <li>Select the API where the GET endpoint should be created.</li>
+               <li>The extension generates the GET route, controller, and service files.</li>
+               <li>The endpoint is automatically connected within the project architecture.</li>
+               <li>The generated API is immediately ready for implementing data retrieval logic.</li>
+            </ul>
+
+         </div>
+
+         <blockquote>
+            <strong>Result:</strong> The extension generates a fully configured GET
+            endpoint, including the required route, controller, and service
+            implementation. Developers can immediately focus on writing business
+            logic instead of manually creating project boilerplate.
+         </blockquote>
+
+      </section>
+
+      <section class="section" id="support">
+         <div class="section-inner">
+            <h2 class="section-title">Support and links</h2>
+            <p class="section-subtitle">Project links and the marketplace listing.</p>
+
+            <table>
+               <tr>
+                  <th>Resource</th>
+                  <th>Link</th>
+               </tr>
+               <tr>
+                  <td>GitHub Repository</td>
+                  <td>
+                     <a href="https://github.com/keshavsoft/vs-code-ext-from-any-js" target="_blank">
+                        https://github.com/keshavsoft/vs-code-ext-from-any-js
+                     </a>
+                  </td>
+               </tr>
+               <tr>
+                  <td>VS Code Marketplace</td>
+                  <td>
+                     <a href="https://marketplace.visualstudio.com/items?itemName=KeshavSoft.vs-code-ext-from-any-js"
+                        target="_blank">
+                        View Extension Marketplace Listing
+                     </a>
+                  </td>
+               </tr>
+            </table>
+
+            <div class="tag-row">
+               <span class="tag">Node.js</span>
+               <span class="tag">Express.js</span>
+               <span class="tag">VS Code Extension</span>
+               <span class="tag">Endpoint Generator</span>
+               <span class="tag">JavaScript</span>
+            </div>
+         </div>
+      </section>
+      <!-- Footer -->
+      <footer>
+         <p>Made with ❤ by KeshavSoft | Licensed under the MIT License</p>
+         <p>Happy Coding! 💻</p>
+      </footer>
+
+   </div>
+</body>
+
+</html>

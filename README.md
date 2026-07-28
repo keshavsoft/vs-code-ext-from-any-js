@@ -99,6 +99,10 @@ https://github.com/keshavsoft/vs-code-ext-from-any-js
 
 https://marketplace.visualstudio.com/items?itemName=KeshavSoft.vs-code-ext-from-any-js
 
+**guide**
+
+https://keshavsoft.github.io/vs-code-ext-from-any-js/
+
 ---
 
 Made with ❤️ by **KeshavSoft**
