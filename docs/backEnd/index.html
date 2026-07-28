@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VS Code Express API Generator Endpoints</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #050816;
+      --bg2: #0a1024;
+      --card: rgba(10, 16, 36, 0.72);
+      --card-border: rgba(148, 163, 184, 0.12);
+      --text: #e5eefc;
+      --muted: #9fb0cc;
+      --accent: #3bb7ff;
+      --accent2: #7c5cff;
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Inter", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top, rgba(59, 183, 255, 0.18), transparent 30%),
+        radial-gradient(circle at 80% 20%, rgba(124, 92, 255, 0.14), transparent 22%),
+        linear-gradient(180deg, #060816 0%, #050816 45%, #040611 100%);
+      min-height: 100vh;
+      line-height: 1.7;
+    }
+
+    .container {
+      width: min(1180px, 92%);
+      margin: 0 auto;
+      padding: 28px 0 50px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 0 34px;
+    }
+
+    .brand {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      color: #ffffff;
+    }
+
+   .repo a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+            word-break: break-all;
+        }
+
+        .repo a:hover {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+    .hero {
+      text-align: center;
+      padding: 40px 16px 28px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: rgba(59, 183, 255, 0.12);
+      border: 1px solid rgba(59, 183, 255, 0.18);
+      color: #8fd7ff;
+      font-size: 0.95rem;
+      margin-bottom: 22px;
+      backdrop-filter: blur(14px);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 5vw, 4.6rem);
+      line-height: 1.05;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      max-width: 920px;
+      margin: 0 auto;
+      text-wrap: balance;
+    }
+
+    .hero p {
+      max-width: 760px;
+      margin: 18px auto 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 22px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.25s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: white;
+      box-shadow: 0 10px 28px rgba(59, 183, 255, 0.22);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 34px rgba(59, 183, 255, 0.28);
+    }
+
+    .btn-secondary {
+      background: rgba(15, 23, 42, 0.55);
+      color: var(--text);
+      border-color: rgba(148, 163, 184, 0.18);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-secondary:hover {
+      border-color: rgba(59, 183, 255, 0.35);
+      transform: translateY(-2px);
+    }
+
+    .section {
+      margin-top: 30px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 26px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+      overflow: hidden;
+    }
+
+    .section-inner {
+      padding: 28px;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+    }
+
+    .section-subtitle {
+      color: var(--muted);
+      margin-bottom: 22px;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    .mini-card {
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.78), rgba(10, 16, 36, 0.78));
+      border: 1px solid rgba(148, 163, 184, 0.12);
+      border-radius: 20px;
+      padding: 22px;
+      transition: 0.25s ease;
+    }
+
+    .mini-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(59, 183, 255, 0.22);
+    }
+
+    .mini-card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 8px;
+      color: #ffffff;
+    }
+
+    .mini-card p {
+      color: var(--muted);
+      font-size: 0.96rem;
+      margin-bottom: 18px;
+    }
+
+    .link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: #44c1ff;
+      font-weight: 600;
+    }
+
+    .link-btn:hover {
+      color: #7dd3ff;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.08);
+      border: 1px solid rgba(148, 163, 184, 0.12);
+      color: #d6e3f8;
+      font-size: 0.9rem;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+    }
+
+    .feature {
+      padding: 22px;
+      border-radius: 18px;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(148, 163, 184, 0.12);
+    }
+
+    .feature h3 {
+      margin-bottom: 8px;
+      color: #ffffff;
+      font-size: 1.05rem;
+    }
+
+    .feature p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .code {
+      margin-top: 14px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      background: rgba(2, 6, 23, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.14);
+      color: #8fd7ff;
+      font-family: Consolas, "Courier New", monospace;
+      overflow-x: auto;
+      white-space: pre-wrap;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 16px;
+      margin-top: 8px;
+    }
+
+    th, td {
+      padding: 14px 12px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+      text-align: left;
+    }
+
+    th {
+      color: #8fd7ff;
+      background: rgba(15, 23, 42, 0.72);
+      font-weight: 600;
+    }
+
+    tr:hover td {
+      background: rgba(148, 163, 184, 0.04);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 28px 12px 8px;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 768px) {
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .section-inner {
+        padding: 20px;
+      }
+
+      .hero {
+        padding-top: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="topbar">
+      <div class="brand">VS Code backEnd Documentation</div>
+       <div class="repo">
+                <a href="https://github.com/keshavsoft/vs-code-ext-from-any-js" target="_blank">
+                    https://github.com/keshavsoft/vs-code-ext-from-any-js.git
+                </a>
+            </div>
+    </div>
+
+    <!-- <section class="hero">
+      <div class="pill">Choose a section</div>
+      <h1>VS Code Express API Generator Endpoints</h1> 
+       <p>
+        Generate Express.js API structures, endpoint folders, routes, and table-based files directly from VS Code.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#endpoints">Open Endpoints</a>
+        <a class="btn btn-secondary" href="#support">View Support</a>
+      </div>
+    </section> -->
+
+    <section class="section" id="endpoints">
+      <div class="section-inner">
+        <h2 class="section-title">Vs code title bar Commends</h2>
+        <p class="section-subtitle">Quick access to all generation workflows.</p>
+
+        <div class="cards-grid">
+          <div class="mini-card">
+            <h3>StartEndPoint</h3>
+            <p>Create endpoint folders using the VS Code HTML interaction.</p>
+            <a class="link-btn" href="StartEndPoint.html">Open →</a></br>
+            <a class="link-btn" href="storyStartEndPoint.html">Story Open →</a>
+          </div>
+
+          <div class="mini-card">
+            <h3>AddTableName</h3>
+            <p>Create endpoint folders using the VS Code input box.</p>
+            <a class="link-btn" href="AddTableName.html">Open →</a></br>
+            <a class="link-btn" href="storyAddTableName.html">Story Open →</a>
+          </div>
+
+          <div class="mini-card">
+            <h3>AddTableNameHtml</h3>
+            <p>Create endpoint folders using an HTML interface.</p>
+            <a class="link-btn" href="AddTableNameHtml.html">Open →</a></br>
+            <a class="link-btn" href="storyAddTableNameHtml.html">Story Open →</a>
+          </div>
+
+          <div class="mini-card">
+            <h3>getMethod</h3>
+            <p>Generate GET endpoint boilerplate.</p>
+            <a class="link-btn" href="getMethod.html">Open →</a></br>
+            <a class="link-btn" href="storygetMethod.html">Story Open →</a>
+          </div>
+
+          <div class="mini-card">
+            <h3>postMethod</h3>
+            <p>Generate POST endpoint boilerplate.</p>
+            <a class="link-btn" href="postMethod.html">Open →</a></br>
+            <a class="link-btn" href="storyPostMethod.html">Story Open →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-inner">
+        <h2 class="section-title">Why use this extension?</h2>
+        <p class="section-subtitle">A faster, cleaner workflow for Express API setup.</p>
+
+        <div class="feature-grid">
+          <div class="feature">
+            <h3>Faster API Development</h3>
+            <p>Accelerate structural setups instantly and reduce repeated work.</p>
+          </div>
+          <div class="feature">
+            <h3>Standardized Setup</h3>
+            <p>Keeps folder layouts organized and consistent across endpoints.</p>
+          </div>
+          <div class="feature">
+            <h3>Less Boilerplate Code</h3>
+            <p>Focus on business logic instead of copy-pasting starter files.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-inner">
+        <h2 class="section-title">Installation</h2>
+        <p class="section-subtitle">Install directly from the VS Code Marketplace.</p>
+        <div class="code">Extensions → Search → VS Code Express any js start hooking</div>
+      </div>
+    </section>
+
+    <section class="section" id="support">
+      <div class="section-inner">
+        <h2 class="section-title">Support and links</h2>
+        <p class="section-subtitle">Project links and the marketplace listing.</p>
+
+        <table>
+          <tr>
+            <th>Resource</th>
+            <th>Link</th>
+          </tr>
+          <tr>
+            <td>GitHub Repository</td>
+            <td>
+              <a href="https://github.com/keshavsoft/vs-code-ext-from-any-js" target="_blank">
+                https://github.com/keshavsoft/vs-code-ext-from-any-js
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td>VS Code Marketplace</td>
+            <td>
+              <a href="https://marketplace.visualstudio.com/items?itemName=KeshavSoft.vs-code-ext-from-any-js" target="_blank">
+                View Extension Marketplace Listing
+              </a>
+            </td>
+          </tr>
+        </table>
+
+        <div class="tag-row">
+          <span class="tag">Node.js</span>
+          <span class="tag">Express.js</span>
+          <span class="tag">VS Code Extension</span>
+          <span class="tag">Endpoint Generator</span>
+          <span class="tag">JavaScript</span>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>Made with ❤ by KeshavSoft | Licensed under the MIT License</p>
+      <p>Happy Coding! 💻</p>
+    </footer>
+  </div>
+</body>
+</html>
