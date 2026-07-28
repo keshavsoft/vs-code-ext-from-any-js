@@ -146,7 +146,7 @@
     "kschema-fs-read-config": "^1.4.8",
     "kschema-fs-ui-alter-config": "^1.6.3",
     "kschema-ui-hook-add-listeners": "^1.5.3",
-    "pattern-collector-anyjs": "^1.9.8",
+    "pattern-collector-anyjs": "^1.9.9",
     "pattern-collector-anyjs-pull-lines": "^1.13.2",
     "pattern-collector-appjs-use-extract": "^1.2.1",
     "pattern-collector-routesjs-import-extract": "^1.2.2"
