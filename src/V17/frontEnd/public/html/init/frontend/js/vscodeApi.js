@@ -1,5 +1,5 @@
 const vscode = acquireVsCodeApi();
 
-function sendAction(action, data = {}) {
+export function sendAction(action, data = {}) {
     vscode.postMessage({ action, ...data });
 }

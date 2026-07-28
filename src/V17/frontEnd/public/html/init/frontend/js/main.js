@@ -1,3 +1,12 @@
+import { sendAction } from "./vscodeApi.js";
+import { showStatus, showSummary, completeStatus } from "./uiNotifier.js";
+import { tableSelect, endPointsSelect, folderDatalist } from "./htmlElements.js";
+import { createSchemaOptions, createEndpointOptions } from "./optionCreator.js";
+import { showAllJson } from "./actionDispatcher.js";
+
+// Expose handlers to global scope for HTML inline bindings
+window.showAllJson = showAllJson;
+
 window.addEventListener("message", ({ data }) => {
     if (data.type === "status") {
         showStatus(data.text);
@@ -7,45 +16,26 @@ window.addEventListener("message", ({ data }) => {
     }
     if (data.type === "complete") {
         completeStatus(data.html);
-    };
+    }
 
     if (data.type === "schemas") {
-        const select = document.getElementById("table-select");
-        if (select) {
-            select.innerHTML = "";
-            if (data.schemas && data.schemas.length > 0) {
-                data.schemas.forEach(schema => {
-                    const option = document.createElement("option");
-                    option.value = schema.tableName;
-                    option.textContent = `${schema.tableName} (${schema.name})`;
-                    select.appendChild(option);
-                });
-            } else {
-                const option = document.createElement("option");
-                option.value = "";
-                option.textContent = "-- No Tables Found --";
-                select.appendChild(option);
-            }
+        if (tableSelect) {
+            tableSelect.innerHTML = "";
+            const options = createSchemaOptions(data.schemas);
+            options.forEach(option => tableSelect.appendChild(option));
         }
-    };
+        if (folderDatalist) {
+            folderDatalist.innerHTML = "";
+            const options = createSchemaOptions(data.schemas);
+            options.forEach(option => folderDatalist.appendChild(option));
+        }
+    }
 
     if (data.type === "endPoints") {
-        const select = document.getElementById("endPoints-select");
-        if (select) {
-            select.innerHTML = "";
-            if (data.endPoints && data.endPoints.length > 0) {
-                data.endPoints.forEach(endpoint => {
-                    const option = document.createElement("option");
-                    option.value = endpoint;
-                    option.textContent = endpoint;
-                    select.appendChild(option);
-                });
-            } else {
-                const option = document.createElement("option");
-                option.value = "";
-                option.textContent = "-- No Endpoints Found --";
-                select.appendChild(option);
-            }
+        if (endPointsSelect) {
+            endPointsSelect.innerHTML = "";
+            const options = createEndpointOptions(data.endPoints);
+            options.forEach(option => endPointsSelect.appendChild(option));
         }
     }
 });

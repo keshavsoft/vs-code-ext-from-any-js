@@ -28,6 +28,7 @@ export async function handleWebviewMessage({ message, panel, toPath, schemasPath
         case "showAllJson":
             showAllJsonAction({
                 inTableName: message.tableName,
+                inEndPoint: message.endPoint,
                 toPath, schemasPath, inTargetPath
             });
 
