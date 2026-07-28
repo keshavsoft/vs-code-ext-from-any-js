@@ -7,7 +7,8 @@ window.addEventListener("message", ({ data }) => {
     }
     if (data.type === "complete") {
         completeStatus(data.html);
-    }
+    };
+
     if (data.type === "schemas") {
         const select = document.getElementById("table-select");
         if (select) {
@@ -26,8 +27,29 @@ window.addEventListener("message", ({ data }) => {
                 select.appendChild(option);
             }
         }
+    };
+
+    if (data.type === "endPoints") {
+        const select = document.getElementById("endPoints-select");
+        if (select) {
+            select.innerHTML = "";
+            if (data.endPoints && data.endPoints.length > 0) {
+                data.endPoints.forEach(endpoint => {
+                    const option = document.createElement("option");
+                    option.value = endpoint;
+                    option.textContent = endpoint;
+                    select.appendChild(option);
+                });
+            } else {
+                const option = document.createElement("option");
+                option.value = "";
+                option.textContent = "-- No Endpoints Found --";
+                select.appendChild(option);
+            }
+        }
     }
 });
 
 // Load schemas on initialization
 sendAction("loadSchemas");
+sendAction("loadEndPoints");
