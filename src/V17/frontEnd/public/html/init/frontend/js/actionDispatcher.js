@@ -3,6 +3,11 @@ function getSelectedTable() {
     return tableSelect ? tableSelect.value : "";
 }
 
+function getSelectedEndPoint() {
+    const endPointsSelect = document.getElementById("endPoints-select");
+    return endPointsSelect ? endPointsSelect.value : "";
+}
+
 function getFolderName(defaultValue = "") {
     const folderInput = document.getElementById("folder-name");
     if (folderInput) {
@@ -18,5 +23,9 @@ function getFolderName(defaultValue = "") {
 
 const showAllJson = () => {
     const cmd = "showAllJson";
-    sendAction(cmd, { tableName: getSelectedTable(), inFolderName: getFolderName(cmd) });
+    sendAction(cmd, { 
+        tableName: getSelectedTable(), 
+        endPoint: getSelectedEndPoint(), 
+        inFolderName: getFolderName(cmd) 
+    });
 };

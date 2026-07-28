@@ -1,6 +1,7 @@
 import showAllJsonAction from "./actions/showAllJson.js";
 
 import { getSchemaFiles } from "./schemaService.js";
+import getEndPoints from "./endPointsService.js";
 
 export async function handleWebviewMessage({ message, panel, toPath, schemasPath, inTargetPath }) {
 
@@ -15,6 +16,15 @@ export async function handleWebviewMessage({ message, panel, toPath, schemasPath
             });
             break;
 
+        case "loadEndPoints":
+
+            const endPoints = getEndPoints({ inTargetPath });
+
+            panel.webview.postMessage({
+                type: "endPoints",
+                endPoints
+            });
+            break;
         case "showAllJson":
             showAllJsonAction({
                 inTableName: message.tableName,
