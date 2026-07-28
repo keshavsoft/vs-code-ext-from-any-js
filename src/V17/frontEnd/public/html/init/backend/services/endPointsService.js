@@ -14,7 +14,7 @@ const startFunc = ({ inTargetPath }) => {
     // extractRegex: extractRegex.fromEndPointsJs
 
     const onlyEndPoints = endPointsArray.map(element => {
-        return element.methodsContent.forRestClient;
+        return element?.methodsContent?.forRestClientFull;
     });
 
     return onlyEndPoints;
