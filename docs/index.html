@@ -165,6 +165,12 @@
             font-size: 15px;
         }
 
+        .open::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+        }
+
         .open span {
             display: inline-block;
             transform: translateY(-1px);
@@ -284,8 +290,9 @@
             <div class="tag">Choose a section</div>
             <!-- <h1>vs-code-ext-from-any-js Documentation</h1> -->
             <p>
-    Select a documentation section below to explore Backend, Frontend, and Dependency documentation. Each section contains commands, workflows, and implementation examples for the extension.
-</p>
+                Select a documentation section below to explore Backend, Frontend, and Dependency documentation. Each
+                section contains commands, workflows, and implementation examples for the extension.
+            </p>
         </section>
 
         <!-- <div class="copy-box">
@@ -298,7 +305,7 @@
         </div> -->
 
         <section class="grid">
-            <div class="card" onclick="location.href='backEnd/index.html'">
+            <div class="card">
                 <div class="card-top">
                     <div class="icon">🚀</div>
                     <div class="title">Backend</div>
@@ -317,10 +324,10 @@
                     <span class="chip">postMethod</span>
                 </div>
 
-                <a class="open" href="backEnd/index.html">Open Backend <span>→</span></a>
+                <a class="open" href="backEnd.html">Open Backend <span>→</span></a>
             </div>
 
-            <div class="card" onclick="location.href='frontEnd.html'">
+            <div class="card">
                 <div class="card-top">
                     <div class="icon">🎨</div>
                     <div class="title">Frontend</div>
@@ -340,7 +347,7 @@
                 <a class="open" href="frontEnd.html">Open Frontend <span>→</span></a>
             </div>
 
-            <div class="card" onclick="location.href='npm-dep-tree.html'">
+            <div class="card">
                 <div class="card-top">
                     <div class="icon">📦</div>
                     <div class="title">Dependencies</div>
@@ -361,8 +368,8 @@
         </section>
 
         <div class="footer">
-    Documentation Hub for VS Code Extension • Backend • Frontend • Dependencies
-</div>
+            Documentation Hub for VS Code Extension • Backend • Frontend • Dependencies
+        </div>
     </div>
     <script>
         function copyGit() {
