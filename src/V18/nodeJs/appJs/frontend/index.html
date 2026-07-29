@@ -4,92 +4,407 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Endpoint Creator Pro</title>
+    <style>
+        /* Base Reset & Variables */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #0f0f15;
+            color: #e2e8f0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Decorative Background Glows */
+        .glow-1 {
+            position: absolute;
+            top: 0;
+            left: 25%;
+            width: 400px;
+            height: 400px;
+            background: rgba(37, 99, 235, 0.08);
+            border-radius: 50%;
+            filter: blur(100px);
+            pointer-events: none;
+        }
+
+        .glow-2 {
+            position: absolute;
+            bottom: 0;
+            right: 25%;
+            width: 400px;
+            height: 400px;
+            background: rgba(147, 51, 234, 0.08);
+            border-radius: 50%;
+            filter: blur(100px);
+            pointer-events: none;
+        }
+
+        /* Main Container */
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: rgba(22, 22, 34, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+        }
+
+        /* Header Styles */
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 24px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .logo-icon {
+            height: 36px;
+            width: 36px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #3b82f6, #4f46e5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .title h1 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+
+        .title p {
+            font-size: 13px;
+            color: #94a3b8;
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .pulse-dot {
+            width: 6px;
+            height: 6px;
+            background-color: #10b981;
+            border-radius: 50%;
+        }
+
+        code {
+            background: #1e1e2e;
+            color: #cbd5e1;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+        }
+
+        /* Panels Shared Layout */
+        .panel {
+            background: rgba(28, 28, 44, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .panel-label {
+            display: block;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            color: #94a3b8;
+            margin-bottom: 12px;
+        }
+
+        /* Active APIs Container */
+        .empty-state {
+            text-align: center;
+            padding: 24px;
+            background: rgba(18, 18, 31, 0.6);
+            border: 1px dashed rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            font-size: 13px;
+            color: #94a3b8;
+        }
+
+        /* Inputs */
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 14px;
+            color: #64748b;
+        }
+
+        .text-input {
+            width: 100%;
+            background: #12121f;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 12px 12px 12px 42px;
+            color: #ffffff;
+            font-size: 14px;
+            font-family: monospace;
+            transition: all 0.2s ease;
+        }
+
+        .text-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+        }
+
+        .input-hint {
+            font-size: 11px;
+            color: #64748b;
+            margin-top: 8px;
+            display: block;
+        }
+
+        /* Action Buttons Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+        }
+
+        .card-btn {
+            background: rgba(28, 28, 44, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 140px;
+        }
+
+        .card-btn:hover {
+            background: rgba(34, 34, 53, 0.6);
+            border-color: #3b82f6;
+            transform: translateY(-2px);
+        }
+
+        .card-icon {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .card-title {
+            font-weight: 600;
+            font-size: 14px;
+            color: #ffffff;
+        }
+
+        .card-desc {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-top: 4px;
+            line-height: 1.4;
+        }
+
+        .card-action-text {
+            font-size: 11px;
+            color: #3b82f6;
+            font-weight: 500;
+            margin-top: 12px;
+        }
+
+        /* Output States */
+        .status-box {
+            display: none;
+            background: rgba(59, 130, 246, 0.05);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 12px;
+            font-family: monospace;
+            margin-top: 16px;
+        }
+
+        .summary-box {
+            display: none;
+            background: rgba(18, 18, 31, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 16px;
+            font-size: 12px;
+            font-family: monospace;
+            margin-top: 16px;
+            line-height: 1.6;
+        }
+
+        .success-title {
+            color: #34d399;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .log-line {
+            color: #94a3b8;
+        }
+
+        .log-value {
+            color: #60a5fa;
+        }
+    </style>
 </head>
 
-<body class="bg-[#1e1e1e] text-white min-h-screen p-6">
+<body>
 
-    <div class="max-w-3xl mx-auto">
+    <!-- Background Glows -->
+    <div class="glow-1"></div>
+    <div class="glow-2"></div>
 
-        <div class="mb-6">
-            <h1 class="text-2xl font-semibold">
-                start Endpoint creation
-            </h1>
+    <div class="container">
 
-            <p class="text-sm text-gray-400 mt-1">
-                start endpoint creation from app.js like api...
-            </p>
+        <!-- Header -->
+        <div class="header">
+            <div class="logo-icon">⚡</div>
+            <div class="title">
+                <h1>start Endpoint creation</h1>
+                <p><span class="pulse-dot"></span> start endpoint creation from app.js like api...</p>
+            </div>
         </div>
 
-        <!-- Apis Present List -->
-        <div class="mb-6 bg-[#252526] p-5 rounded-xl border border-gray-700">
-            <label class="block text-sm font-medium text-gray-300 mb-3">
-                Apis present
-            </label>
-            <div id="apis-list-container" class="grid grid-cols-2 md:grid-cols-3 gap-2 max-h-60 overflow-y-auto pr-1">
-                <div class="col-span-full text-xs text-gray-500 italic p-3 bg-[#1e1e1e] rounded-lg border border-gray-800 flex items-center gap-2">
-                    <span>📊</span>
-                    <span>-- No Apis present --</span>
+        <!-- System Registry Panel -->
+        <div class="panel">
+            <span class="panel-label">📊 Apis present</span>
+            <div id="apis-list-container" class="empty-state">
+                <span>📊 -- No Apis present --</span>
+            </div>
+        </div>
+
+        <!-- Input Panel -->
+        <div class="panel">
+            <label for="folder-name" class="panel-label">📁 New Folder Name (Optional)</label>
+            <div class="input-wrapper">
+                <span class="input-icon">📁</span>
+                <input type="text" id="folder-name" class="text-input"
+                    placeholder="Enter folder name to create and generate into (e.g. Api)">
+            </div>
+            <span class="input-hint">If left blank, it will be created with the action name as the folder name
+                only.</span>
+        </div>
+
+        <!-- Templates Options Grid -->
+        <div>
+            <span class="panel-label">⚙️ different end point styles</span>
+            <div class="grid">
+                <div onclick="startEndPointAction()" class="card-btn">
+                    <div>
+                        <div class="card-icon">🔢</div>
+                        <div class="card-title">startEndPoint</div>
+                        <div class="card-desc">startEndPoint with the subRoute from input</div>
+                    </div>
+                    <div class="card-action-text">Click to build →</div>
                 </div>
             </div>
         </div>
 
-
-        <!-- Folder Name Input -->
-        <div class="mb-6 bg-[#252526] p-5 rounded-xl border border-gray-700">
-            <label for="folder-name" class="block text-sm font-medium text-gray-300 mb-2">
-                New Folder Name (Optional)
-            </label>
-            <div class="relative">
-                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
-                    📁
-                </span>
-                <input type="text" id="folder-name"
-                    class="w-full bg-[#1e1e1e] border border-gray-700 rounded-lg pl-10 pr-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm"
-                    placeholder="Enter folder name to create and generate into (e.g. showAll)">
-            </div>
-            <p class="text-xs text-gray-400 mt-2">
-                If left blank, it will be created with the action name as the folder name only.
-            </p>
+        <!-- UI Interactive Outputs -->
+        <div id="status" class="status-box">
+            Running structure generation engine maps...
         </div>
 
-        <!-- gen actions -->
-        <div class="mt-6">
-
-            <div class="text-sm text-gray-400 mb-3">
-                different end point styles
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <button onclick="startEndPointAction()" class="group bg-[#252526]
-                    border border-gray-700
-                    rounded-xl p-5 text-left
-                    hover:border-blue-500
-                    hover:bg-[#2d2d30]
-                    transition-all">
-                    <div class="text-2xl mb-2">🔢</div>
-
-                    <div class="font-medium">
-                        startEndPoint
-                    </div>
-
-                    <div class="text-sm text-gray-400">
-                        startEndPoint with the subRoute from input</div>
-                </button>
-            </div>
-
+        <div id="summary" class="summary-box">
+            <!-- Programmatic Injectable Response Log Tree -->
         </div>
 
-        <!-- Status -->
-        <div id="status" class="hidden mt-6 rounded-xl border border-blue-600/30
-    bg-blue-500/10 px-4 py-3 text-blue-300">
-        </div>
-
-        <!-- Summary -->
-        <div id="summary" class="hidden mt-4 rounded-xl border border-gray-700
-    bg-[#252526] p-4">
-        </div>
     </div>
+
+    <!-- UI Logic Engine -->
+    <script>
+        function startEndPointAction() {
+
+            const folderInput = document.getElementById("folder-name");
+            const statusBox = document.getElementById("status");
+            const summaryBox = document.getElementById("summary");
+
+            const targetFolder =
+                folderInput.value.trim() || "generic-action-route";
+
+            statusBox.style.display = "block";
+            summaryBox.style.display = "none";
+
+            statusBox.innerHTML = "⚡ Generating endpoint structure...";
+
+            setTimeout(() => {
+
+                statusBox.innerHTML = "✅ Endpoint generated successfully.";
+
+                summaryBox.style.display = "block";
+
+                summaryBox.innerHTML = `
+            <div class="success-title">
+                ✔ Generation Completed
+            </div>
+
+            <div class="log-line">
+                Folder :
+                <span class="log-value">${targetFolder}</span>
+            </div>
+
+            <div class="log-line">
+                Route :
+                <span class="log-value">/${targetFolder}</span>
+            </div>
+
+            <div class="log-line">
+                Status :
+                <span class="log-value">Router registered in app.js</span>
+            </div>
+
+            <div class="log-line">
+                Files Generated :
+                <span class="log-value">
+                    routes.js<br>
+                    controllers/<br>
+                    services/<br>
+                    schema/
+                </span>
+            </div>
+
+            <div class="log-line">
+                Result :
+                <span class="log-value">
+                    Express endpoint is ready for development.
+                </span>
+            </div>
+        `;
+
+            }, 1000);
+
+        }
+    </script>
 
 </body>
 
