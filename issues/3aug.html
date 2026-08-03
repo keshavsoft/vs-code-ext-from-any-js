@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work Update</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f5f7fb;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, .1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: #1f2937;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        h2 {
+            color: #2563eb;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #374151;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            margin-left: 25px;
+        }
+
+        li {
+            margin: 10px 0;
+            line-height: 1.7;
+        }
+
+        .success {
+            color: #16a34a;
+            font-weight: 600;
+        }
+
+        .error {
+            color: #dc2626;
+            font-weight: 600;
+        }
+
+        .warning {
+            color: #d97706;
+            font-weight: 600;
+        }
+
+        .code {
+            background: #f3f4f6;
+            padding: 12px;
+            border-radius: 6px;
+            font-family: Consolas, monospace;
+            margin: 10px 0;
+            border-left: 5px solid #2563eb;
+        }
+
+        .footer {
+            margin-top: 25px;
+            font-weight: bold;
+        }
+
+        .buttons {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        button {
+            border: none;
+            padding: 14px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            color: white;
+            font-size: 16px;
+            margin: 5px;
+        }
+
+        .copyBtn {
+            background: #2563eb;
+        }
+
+        .copyBtn:hover {
+            background: #1d4ed8;
+        }
+
+        .downloadBtn {
+            background: #16a34a;
+        }
+
+        .downloadBtn:hover {
+            background: #15803d;
+        }
+
+        pre {
+            white-space: pre-wrap;
+            display: none;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <h1>Doctors CRUD Module - Work Update</h1>
+        </div>
+
+        <div class="content" id="document">
+
+            <h2>📋 Work Update</h2>
+
+            <p><strong>Hi Sir,</strong></p>
+
+            <h3>Today's Work Update</h3>
+
+            <ul>
+
+                <li><span class="success">✅ CRUD functionality is mostly completed and working properly.</span></li>
+
+                <li><span class="success">✅ Edit (Update) functionality is working as expected.</span></li>
+
+                <li><span class="success">✅ Insert functionality is working correctly in both CRUD and Vertical
+                        views.</span></li>
+
+                <li>
+                    <span class="error">❌ Delete functionality is not working.</span>
+
+                    <ul>
+                        <li>The Delete API is being called with an undefined ID.</li>
+                        <li>The frontend is calling:</li>
+                    </ul>
+
+                    <div class="code">
+                        DELETE /api/doctors/del/undefined
+                    </div>
+
+                    <ul>
+                        <li>Because the record ID is not being passed from the frontend, the API returns <b>404 Not
+                                Found</b>.</li>
+                        <li>The backend receives the request, but the correct Primary Key needs to be sent from the
+                            frontend.</li>
+                    </ul>
+
+                </li>
+
+                <li>
+                    <span class="warning">⚠ Backend currently has only GET and POST methods.</span>
+
+                    <ul>
+                        <li>Need to implement/support:</li>
+                        <li>DELETE API</li>
+                        <li>PUT/PATCH (Update) API (if required)</li>
+                        <li>Remaining CRUD endpoints.</li>
+                    </ul>
+
+                </li>
+
+                <li>
+
+                    <span class="warning">⚠ UI Issue</span>
+
+                    <ul>
+                        <li>After clicking <b>Save</b>, the record is inserted successfully.</li>
+                        <li>The table refreshes correctly.</li>
+                        <li>However, the input fields are not cleared after saving.</li>
+                        <li>The previously entered values remain in the form.</li>
+                        <li>The input fields should be reset after a successful insert.</li>
+                    </ul>
+
+                </li>
+
+            </ul>
+
+
+            <h3> Observation</h3>
+
+            <div class="code">
+                Request URL:
+                http://localhost:9012/api/doctors/del/undefined
+
+                Status:
+                404 Not Found
+
+                Root Cause:
+                The Delete API is being called without passing the record ID (Primary Key).
+                Once the correct ID is sent from the frontend,
+                the Delete functionality should work properly.
+            </div>
+
+            <p class="footer">
+                Thank you, Sir.
+            </p>
+
+            <div class="buttons">
+
+                <button class="copyBtn" onclick="copyDocument()">
+                    📋 Copy Document
+                </button>
+
+                <button class="downloadBtn" onclick="downloadText()">
+                    💾 Download TXT
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <pre id="copyText">📋 Work Update – Doctors CRUD Module
+
+Hi Sir,
+
+Today's work update:
+
+• ✅ CRUD functionality is mostly completed and working properly.
+• ✅ Edit (Update) functionality is working as expected.
+• ✅ Insert functionality is working correctly in both CRUD and Vertical views.
+
+• ❌ Delete functionality is not working.
+  - DELETE /api/doctors/del/undefined
+  - Record ID is not being passed from the frontend.
+  - API returns 404 Not Found.
+  - Correct Primary Key needs to be sent.
+
+• ⚠ Backend currently has only GET and POST methods.
+  - DELETE API
+  - PUT/PATCH API
+  - Remaining CRUD endpoints.
+
+• ⚠ UI Issue:
+  - Save works correctly.
+  - Table refreshes correctly.
+  - Input fields are not cleared after saving.
+  - Previous values remain in the form.
+  - Fields should be reset after successful insert.
+
+📝 Reason for the Time Taken
+
+• I reviewed the code while implementing the features.
+• I verified the overall flow before proceeding.
+
+📷 Screenshot Observation
+
+Request URL:
+http://localhost:9012/api/doctors/del/undefined
+
+Status:
+404 Not Found
+
+Root Cause:
+Delete API is being called without passing the record ID (Primary Key).
+
+Thank you, Sir.</pre>
+
+    <script>
+
+        function copyDocument() {
+
+            const text = document.getElementById("copyText").innerText;
+
+            navigator.clipboard.writeText(text);
+
+            alert("Document copied successfully.");
+
+        }
+
+        function downloadText() {
+
+            const text = document.getElementById("copyText").innerText;
+
+            const blob = new Blob([text], { type: "text/plain" });
+
+            const a = document.createElement("a");
+
+            a.href = URL.createObjectURL(blob);
+
+            a.download = "Doctors-Work-Update.txt";
+
+            a.click();
+
+            URL.revokeObjectURL(a.href);
+
+        }
+
+    </script>
+
+</body>
+
+</html>
