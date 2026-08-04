@@ -1,32 +1,17 @@
 import fs from 'fs';
 import path from 'path';
 
-// import getFolders from 'pattern-collector-routesjs-import-extract';
-
-import extractRegex from './extractRegex.js';
-
-import pullAllLines from 'pattern-collector-anyjs';
+import pullAllLines from 'pattern-collector-anyjs-story';
 
 const getFoldersFromImport = (toPath) => {
-
-
     const fileContent = fs.readFileSync(path.join(toPath, "routes.js"), 'utf8');
 
-    const fromPullLines = pullAllLines({ fileContent, extractRegex });
+    const fromPullLines = pullAllLines({ fileContent, fileType: "fromRoutesJsEnd" });
+    const folderNames = fromPullLines?.linesStory?.importLines?.map(element => {
+        return element?.part1;
+    });
 
-    return fromPullLines.importLines;
-
-    // return fromPullLines.importLines.map(element => {
-    //     return element.raka;
-    // });
-
-    //  fileContent,
-    // consumptionRegex: extractRegex.consumptionRegex,
-    // importRegex: extractRegex.importRegex,
-    // exportRegex: extractRegex.exportRegex,
-    // importNpmRegex: extractRegex?.importNpmRegex,
-
-    // return getFolders({ filePath: toPath });
+    return folderNames;
 };
 
 export default getFoldersFromImport;

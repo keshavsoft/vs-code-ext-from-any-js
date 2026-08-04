@@ -34,15 +34,26 @@ export async function executeGenerationTask({
         await sleep(200);
 
         postLog("⚙️ Generating HTTP handlers (GET, POST, PUT, DELETE)...", "info");
-        const funcToRun = await generateFunc();
+        // const funcToRun = await generateFunc();
 
-        await funcToRun({
-            showLog: true,
-            isAnnounce: true,
-            folderName: inFolderName || "",
+        // await funcToRun({
+        //     showLog: true,
+        //     isAnnounce: true,
+        //     folderName: inFolderName || "",
+        //     toPath,
+        //     tableName
+        // });
+        const funcToRun = generateFunc({
+            inFileType: "fromRoutesJsEnd",
+            raka: inFolderName || "",
+            poka: inFolderName || "",
             toPath,
-            tableName
+            alterArray: [
+                { "key": "<TABLE_NAME>", "value": tableName }
+            ]
         });
+
+
         await sleep(350);
 
         postLog("🧪 Integrating routes.js imports and configurations...", "info");
