@@ -5,10 +5,7 @@ import alterConfig from 'kschema-fs-ui-alter-config';
 
 import endPointsJson from './endPoints.json' with {type: 'json'};
 
-// import { withHeader } from "json-crud-ui-table";
-// import { executeGenerationTask } from "../generatorService.js";
-
-const startFunc = async ({ inTableName, toPath,
+const startFunc = ({ inTableName, toPath,
     inEndPoint, schemasPath, inTargetPath }) => {
 
     const configPath = path.join(inTargetPath, schemasPath, `${inTableName}.json`);
@@ -16,11 +13,13 @@ const startFunc = async ({ inTableName, toPath,
 
     endPointsJson.read = inEndPoint;
 
-    alterConfig({
+    const fromAlter = alterConfig({
         toPath, endPointsJson,
         sacredWisdom: JSON.parse(data),
         inAction: "Crud"
     });
+
+    return fromAlter;
 };
 
 export default startFunc;
