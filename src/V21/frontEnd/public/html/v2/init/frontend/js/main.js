@@ -1,6 +1,6 @@
 import { sendAction } from "./vscodeApi.js";
 import { showStatus, showSummary, completeStatus } from "./uiNotifier.js";
-import { tableSelect, endPointsSelect, folderDatalist } from "./htmlElements.js";
+import { tableSelect, createEndpointSelect, readEndpointSelect, updateEndpointSelect, deleteEndpointSelect } from "./htmlElements.js";
 import { createSchemaOptions, createEndpointOptions } from "./optionCreator.js";
 import { showAllJson } from "./actionDispatcher.js";
 
@@ -48,19 +48,28 @@ window.addEventListener("message", ({ data }) => {
             const options = createSchemaOptions(data.schemas);
             options.forEach(option => tableSelect.appendChild(option));
         }
-        if (folderDatalist) {
-            folderDatalist.innerHTML = "";
-            const options = createSchemaOptions(data.schemas);
-            options.forEach(option => folderDatalist.appendChild(option));
-        }
     }
 
     if (data.type === "endPoints") {
-        if (endPointsSelect) {
-            endPointsSelect.innerHTML = "";
-            const options = createEndpointOptions(data.endPoints);
-            options.forEach(option => endPointsSelect.appendChild(option));
-        }
+        const selects = [
+            { el: createEndpointSelect, defaultVal: "/api/doctors/insertWithMeta" },
+            { el: readEndpointSelect, defaultVal: "/api/doctors/showAll" },
+            { el: updateEndpointSelect, defaultVal: "/api/v1/doctors/modify" },
+            { el: deleteEndpointSelect, defaultVal: "/api/v1/doctors/del" }
+        ];
+        selects.forEach(({ el, defaultVal }) => {
+            if (el) {
+                el.innerHTML = "";
+                const options = createEndpointOptions(data.endPoints);
+                options.forEach(option => el.appendChild(option));
+                
+                // Pre-select target default endpoint if it matches
+                const foundOpt = Array.from(el.options).find(opt => opt.value.endsWith(defaultVal) || opt.value === defaultVal);
+                if (foundOpt) {
+                    el.value = foundOpt.value;
+                }
+            }
+        });
     }
 });
 

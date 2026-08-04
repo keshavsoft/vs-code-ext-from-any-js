@@ -1,31 +1,34 @@
 import { sendAction } from "./vscodeApi.js";
-import { tableSelect, endPointsSelect, folderNameInput } from "./htmlElements.js";
+import { tableSelect, createEndpointSelect, readEndpointSelect, updateEndpointSelect, deleteEndpointSelect } from "./htmlElements.js";
 
 export function getSelectedTable() {
     return tableSelect ? tableSelect.value : "";
 }
 
-export function getSelectedEndPoint() {
-    return endPointsSelect ? endPointsSelect.value : "";
+export function getSelectedCreateEndPoint() {
+    return createEndpointSelect ? createEndpointSelect.value : "";
 }
 
-export function getFolderName(defaultValue = "") {
-    if (folderNameInput) {
-        let val = folderNameInput.value.trim();
-        if (!val && defaultValue) {
-            folderNameInput.value = defaultValue;
-            val = defaultValue;
-        }
-        return val;
-    }
-    return "";
+export function getSelectedReadEndPoint() {
+    return readEndpointSelect ? readEndpointSelect.value : "";
+}
+
+export function getSelectedUpdateEndPoint() {
+    return updateEndpointSelect ? updateEndpointSelect.value : "";
+}
+
+export function getSelectedDeleteEndPoint() {
+    return deleteEndpointSelect ? deleteEndpointSelect.value : "";
 }
 
 export const showAllJson = () => {
     const cmd = "showAllJson";
     sendAction(cmd, { 
         tableName: getSelectedTable(), 
-        endPoint: getSelectedEndPoint(), 
-        inFolderName: getFolderName(cmd) 
+        createEndPoint: getSelectedCreateEndPoint(),
+        readEndPoint: getSelectedReadEndPoint(),
+        updateEndPoint: getSelectedUpdateEndPoint(),
+        deleteEndPoint: getSelectedDeleteEndPoint(),
+        inFolderName: cmd
     });
 };

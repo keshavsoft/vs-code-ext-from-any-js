@@ -9,20 +9,28 @@
 
 <body class="bg-[#1e1e1e] text-white min-h-screen p-6">
 
-    <div class="max-w-3xl mx-auto">
+    <div class="max-w-5xl mx-auto">
 
-        <div class="mb-6">
-            <h1 class="text-2xl font-semibold">
-                insert Columns
-            </h1>
+        <div class="flex justify-between items-start mb-6">
+            <div>
+                <h1 class="text-2xl font-semibold">
+                    insert Columns
+                </h1>
 
-            <p class="text-sm text-gray-400 mt-1">
-                insert Columns from schema to showColumns.json and endpoints
-            </p>
+                <p class="text-sm text-gray-400 mt-1">
+                    insert Columns from schema to showColumns.json and endpoints
+                </p>
+            </div>
+            
+            <button onclick="showAllJson()" 
+                title="Generate showAll.json"
+                class="flex items-center justify-center bg-blue-600 hover:bg-blue-500 text-white rounded-full w-12 h-12 shadow-lg transition-all duration-150 transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-[#1e1e1e]">
+                <span class="text-lg">⚡</span>
+            </button>
         </div>
 
-        <!-- Grid for Table Name & Endpoint side-by-side -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <!-- Grid for Table Name & Endpoints side-by-side -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 items-start">
             <!-- Table Name Select -->
             <div class="bg-[#252526] p-5 rounded-xl border border-gray-700">
                 <label for="table-select" class="block text-sm font-medium text-gray-300 mb-2">
@@ -42,72 +50,89 @@
                 </div>
             </div>
 
-            <!-- Endpoint Select -->
+            <!-- Endpoints Select Card -->
             <div class="bg-[#252526] p-5 rounded-xl border border-gray-700">
-                <label for="endPoints-select" class="block text-sm font-medium text-gray-300 mb-2">
-                    Select Endpoint
-                </label>
-                <div class="relative">
-                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
-                        🔗
-                    </span>
-                    <select id="endPoints-select"
-                        class="w-full bg-[#1e1e1e] border border-gray-700 rounded-lg pl-10 pr-10 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm appearance-none">
-                        <option value="">-- No Endpoints Loaded --</option>
-                    </select>
-                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
-                        ▼
+                <div class="text-sm font-medium text-gray-300 mb-4">
+                    Select Endpoints
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Create Endpoint Select -->
+                    <div>
+                        <label for="create-endpoint-select" class="block text-xs text-gray-400 mb-2 font-medium">
+                            Create Endpoint
+                        </label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
+                                ➕
+                            </span>
+                            <select id="create-endpoint-select"
+                                class="w-full bg-[#1e1e1e] border border-gray-700 rounded-lg pl-10 pr-10 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm appearance-none">
+                                <option value="">-- No Endpoints Loaded --</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
+                                ▼
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Read Endpoint Select -->
+                    <div>
+                        <label for="read-endpoint-select" class="block text-xs text-gray-400 mb-2 font-medium">
+                            Read Endpoint
+                        </label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
+                                📖
+                            </span>
+                            <select id="read-endpoint-select"
+                                class="w-full bg-[#1e1e1e] border border-gray-700 rounded-lg pl-10 pr-10 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm appearance-none">
+                                <option value="">-- No Endpoints Loaded --</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
+                                ▼
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Update Endpoint Select -->
+                    <div>
+                        <label for="update-endpoint-select" class="block text-xs text-gray-400 mb-2 font-medium">
+                            Update Endpoint
+                        </label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
+                                ✏️
+                            </span>
+                            <select id="update-endpoint-select"
+                                class="w-full bg-[#1e1e1e] border border-gray-700 rounded-lg pl-10 pr-10 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm appearance-none">
+                                <option value="">-- No Endpoints Loaded --</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
+                                ▼
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Delete Endpoint Select -->
+                    <div>
+                        <label for="delete-endpoint-select" class="block text-xs text-gray-400 mb-2 font-medium">
+                            Delete Endpoint
+                        </label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
+                                🗑️
+                            </span>
+                            <select id="delete-endpoint-select"
+                                class="w-full bg-[#1e1e1e] border border-gray-700 rounded-lg pl-10 pr-10 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm appearance-none">
+                                <option value="">-- No Endpoints Loaded --</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
+                                ▼
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Folder Name Input -->
-        <div class="mb-6 bg-[#252526] p-5 rounded-xl border border-gray-700">
-            <label for="folder-name" class="block text-sm font-medium text-gray-300 mb-2">
-                New Folder Name (Optional)
-            </label>
-            <div class="relative">
-                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
-                    📁
-                </span>
-                <input type="text" id="folder-name" list="folder-datalist"
-                    class="w-full bg-[#1e1e1e] border border-gray-700 rounded-lg pl-10 pr-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm"
-                    placeholder="Enter folder name to create and generate into (e.g. showAll)">
-                <datalist id="folder-datalist"></datalist>
-            </div>
-            <p class="text-xs text-gray-400 mt-2">
-                If left blank, it will be created with the action name as the folder name only.
-            </p>
-        </div>
-
-        <!-- post Actions -->
-        <div class="mt-6">
-
-            <div class="text-sm text-gray-400 mb-3">
-                post Actions
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <button onclick="showAllJson()" class="group bg-[#252526]
-                    border border-gray-700
-                    rounded-xl p-5 text-left
-                    hover:border-blue-500
-                    hover:bg-[#2d2d30]
-                    transition-all">
-                    <div class="text-2xl mb-2">🔢</div>
-
-                    <div class="font-medium">
-                        showAll.json
-                    </div>
-
-                    <div class="text-sm text-gray-400">
-                        showAll.json in configs folder
-                    </div>
-                </button>
-
-            </div>
-
         </div>
 
         <!-- Status -->
