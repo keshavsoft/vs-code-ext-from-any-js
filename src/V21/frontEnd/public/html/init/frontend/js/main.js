@@ -6,6 +6,30 @@ import { showAllJson } from "./actionDispatcher.js";
 
 // Expose handlers to global scope for HTML inline bindings
 window.showAllJson = showAllJson;
+window.openFile = (filePath) => {
+    sendAction("openFile", { filePath });
+};
+window.switchTab = (event, tabId) => {
+    const tabContents = document.querySelectorAll(".tab-content");
+    tabContents.forEach(content => {
+        content.classList.add("hidden");
+    });
+
+    const targetContent = document.getElementById(tabId);
+    if (targetContent) {
+        targetContent.classList.remove("hidden");
+    }
+
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    tabButtons.forEach(btn => {
+        btn.classList.remove("bg-blue-600", "text-white");
+        btn.classList.add("text-gray-400", "hover:text-white", "hover:bg-gray-800");
+    });
+
+    const currentBtn = event.currentTarget;
+    currentBtn.classList.remove("text-gray-400", "hover:text-white", "hover:bg-gray-800");
+    currentBtn.classList.add("bg-blue-600", "text-white");
+};
 
 window.addEventListener("message", ({ data }) => {
     if (data.type === "status") {
