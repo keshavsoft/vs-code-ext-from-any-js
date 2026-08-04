@@ -1,8 +1,6 @@
 import * as vscode from 'vscode';
 
-// import fromHtml from './html/init/backend/readHtml.js';
-
-import htmlCommands from './html/registerCommands.js';
+import fromHtml from './v2/init/backend/readHtml.js';
 
 const fromHtmlCommands = (context) => {
     const commandHtml = "extension.editor.title.frontend.public.html.init";
@@ -13,7 +11,7 @@ const fromHtmlCommands = (context) => {
 };
 
 const registerAllCommands = (context) => {
-    htmlCommands(context);
+    fromHtmlCommands(context);
 };
 
 export default registerAllCommands;
