@@ -4,7 +4,7 @@
   "description": "start from any js, and hook foldes",
   "publisher": "KeshavSoft",
   "type": "module",
-  "version": "1.19.1",
+  "version": "1.20.2",
   "engines": {
     "vscode": "^1.116.0"
   },
@@ -148,9 +148,9 @@
     "kschema-ui-hook-add-listeners": "^1.5.3",
     "pattern-collector-anyjs": "^1.9.12",
     "pattern-collector-anyjs-pull-lines": "^1.13.2",
-    "pattern-collector-anyjs-story": "^1.16.4",
+    "pattern-collector-anyjs-story": "^1.21.2",
     "pattern-collector-appjs-use-extract": "^1.2.1",
     "pattern-collector-routesjs-import-extract": "^1.2.2",
-    "template-provider": "^1.7.3"
+    "template-provider": "^1.10.2"
   }
 }
