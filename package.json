@@ -137,7 +137,7 @@
     "eslint": "^9.39.3"
   },
   "dependencies": {
-    "json-crud-ui-init": "^1.9.10",
+    "json-crud-ui-init": "^1.10.1",
     "kschema-api-gen-appjs": "^1.9.2",
     "kschema-api-gen-endpointsjs": "^1.8.2",
     "kschema-build-endpoints": "^1.7.3",
