@@ -1,5 +1,3 @@
-import * as vscode from 'vscode';
-
 export async function executeGenerationTask({
     panel,
     actionLabel,
@@ -34,25 +32,13 @@ export async function executeGenerationTask({
         await sleep(200);
 
         postLog("⚙️ Generating HTTP handlers (GET, POST, PUT, DELETE)...", "info");
-        // const funcToRun = await generateFunc();
 
-        // await funcToRun({
-        //     showLog: true,
-        //     isAnnounce: true,
-        //     folderName: inFolderName || "",
-        //     toPath,
-        //     tableName
-        // });
         const funcToRun = generateFunc({
-            inFileType: "fromRoutesJsEnd",
+            inFileType: "fromRoutesJs",
             raka: inFolderName || "",
             poka: inFolderName || "",
-            toPath,
-            alterArray: [
-                { "key": "<TABLE_NAME>", "value": tableName }
-            ]
+            toPath
         });
-
 
         await sleep(350);
 
