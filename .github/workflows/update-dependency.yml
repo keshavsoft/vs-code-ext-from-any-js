@@ -47,6 +47,9 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
+          # Bump version
+          npm version patch --no-git-tag-version
+          
           # Commit the changes
           git add package.json package-lock.json
           git commit -m "chore(deps): update ${{ github.event.client_payload.package || 'kschema-build-endpoints' }} to latest [skip ci]"
