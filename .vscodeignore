@@ -13,3 +13,4 @@ archive/**
 .github/**
 publish_instructions.md
 *.vsix
+.env
