@@ -10,7 +10,7 @@ const addTableNameCommand = (context) => {
 };
 
 const addSubRouteCommand = (context) => {
-    const commandHtml = 'extension.editor.title.routesjs.addSubRoute';
+    const commandHtml = 'extension.editor.title.backend.routesjs.addSubRoute';
     const showHtml = vscode.commands.registerCommand(commandHtml, (uri) => addSubRoute(context, uri));
     context.subscriptions.push(showHtml);
 };

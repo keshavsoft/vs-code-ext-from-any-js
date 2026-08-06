@@ -1,6 +1,6 @@
 import runSync from 'template-provider';
 
-import { executeGenerationTask } from "../forgeEngine.js";
+import { executeGenerationTask } from "../forgeSubRoute.js";
 
 const startFunc = async ({ panel, tableName, toPath, inFolderName }) => {
     await executeGenerationTask({

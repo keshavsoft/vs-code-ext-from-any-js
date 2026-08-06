@@ -1,5 +1,5 @@
 import loadSchemasAction from "./messageRouter/loadSchemas.js";
-import addTableNameAction from "./messageRouter/addTableName.js";
+import addSubRoute from "./messageRouter/addSubRoute.js";
 
 export async function handleWebviewMessage({ message, panel, toPath, schemasPath,
     port, inTargetPath }) {
@@ -10,7 +10,7 @@ export async function handleWebviewMessage({ message, panel, toPath, schemasPath
             break;
 
         case "addTableName":
-            await addTableNameAction({ message, panel, toPath, schemasPath, inTargetPath, port });
+            await addSubRoute({ message, panel, toPath, schemasPath, inTargetPath, port });
             break;
     }
 }
