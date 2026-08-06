@@ -10,10 +10,5 @@ git commit -m "chore: setup updated publish workflows and update docs"
 git push origin main
 ```
 
-### Step 2: Tag the Version and Push it to GitHub
-The current version in your `package.json` is `1.15.3`. Tag the commit with `v1.15.3` and push it to trigger the automated publish workflow:
-```bash
-git tag v1.15.3
-git push origin v1.15.3
-```
-This push will automatically start the **Publish Extension** action on GitHub.
+### Step 2: Trigger the Workflow on GitHub
+Go to your GitHub repository Actions page, select the **Publish Extension** workflow, and click the **Run workflow** button to trigger the publish manually.
