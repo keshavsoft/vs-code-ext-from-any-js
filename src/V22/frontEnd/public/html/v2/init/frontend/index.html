@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-[#1e1e1e] text-white min-h-screen p-6">
+
+    <div class="max-w-5xl mx-auto">
+
+        <div class="flex justify-between items-start mb-6">
+            <div>
+                <h1 class="text-2xl font-semibold">
+                    insert Columns
+                </h1>
+
+                <p class="text-sm text-gray-400 mt-1">
+                    insert Columns from schema to showColumns.json and endpoints
+                </p>
+            </div>
+            
+            <button onclick="showAllJson()" 
+                title="Generate showAll.json"
+                class="flex items-center justify-center bg-blue-600 hover:bg-blue-500 text-white rounded-full w-12 h-12 shadow-lg transition-all duration-150 transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-[#1e1e1e]">
+                <span class="text-lg">⚡</span>
+            </button>
+        </div>
+
+        <!-- Grid for Table Name & Endpoints side-by-side -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 items-start">
+            <!-- Table Name Select -->
+            <div class="bg-[#252526] p-5 rounded-xl border border-gray-700">
+                <label for="table-select" class="block text-sm font-medium text-gray-300 mb-2">
+                    Select Table Name (from Schema)
+                </label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
+                        📊
+                    </span>
+                    <select id="table-select"
+                        class="w-full bg-[#1e1e1e] border border-gray-700 rounded-lg pl-10 pr-10 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm appearance-none">
+                        <option value="">-- No Tables Loaded --</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
+                        ▼
+                    </div>
+                </div>
+            </div>
+
+            <!-- Endpoints Select Card -->
+            <div class="bg-[#252526] p-5 rounded-xl border border-gray-700">
+                <div class="text-sm font-medium text-gray-300 mb-4">
+                    Select Endpoints
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Create Endpoint Select -->
+                    <div>
+                        <label for="create-endpoint-select" class="block text-xs text-gray-400 mb-2 font-medium">
+                            Create Endpoint
+                        </label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
+                                ➕
+                            </span>
+                            <select id="create-endpoint-select"
+                                class="w-full bg-[#1e1e1e] border border-gray-700 rounded-lg pl-10 pr-10 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm appearance-none">
+                                <option value="">-- No Endpoints Loaded --</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
+                                ▼
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Read Endpoint Select -->
+                    <div>
+                        <label for="read-endpoint-select" class="block text-xs text-gray-400 mb-2 font-medium">
+                            Read Endpoint
+                        </label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
+                                📖
+                            </span>
+                            <select id="read-endpoint-select"
+                                class="w-full bg-[#1e1e1e] border border-gray-700 rounded-lg pl-10 pr-10 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm appearance-none">
+                                <option value="">-- No Endpoints Loaded --</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
+                                ▼
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Update Endpoint Select -->
+                    <div>
+                        <label for="update-endpoint-select" class="block text-xs text-gray-400 mb-2 font-medium">
+                            Update Endpoint
+                        </label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
+                                ✏️
+                            </span>
+                            <select id="update-endpoint-select"
+                                class="w-full bg-[#1e1e1e] border border-gray-700 rounded-lg pl-10 pr-10 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm appearance-none">
+                                <option value="">-- No Endpoints Loaded --</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
+                                ▼
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Delete Endpoint Select -->
+                    <div>
+                        <label for="delete-endpoint-select" class="block text-xs text-gray-400 mb-2 font-medium">
+                            Delete Endpoint
+                        </label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
+                                🗑️
+                            </span>
+                            <select id="delete-endpoint-select"
+                                class="w-full bg-[#1e1e1e] border border-gray-700 rounded-lg pl-10 pr-10 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm appearance-none">
+                                <option value="">-- No Endpoints Loaded --</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
+                                ▼
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status -->
+        <div id="status" class="hidden mt-6 rounded-xl border border-blue-600/30
+    bg-blue-500/10 px-4 py-3 text-blue-300">
+        </div>
+
+        <!-- Summary -->
+        <div id="summary" class="hidden mt-4 rounded-xl border border-gray-700
+    bg-[#252526] p-4">
+        </div>
+    </div>
+
+</body>
+
+</html>
