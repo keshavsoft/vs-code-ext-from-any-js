@@ -23,6 +23,12 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Save Before Version
+        id: before
+        run: |
+          BEFORE_VERSION=$(node -p "require('./package.json').version")
+          echo "version=${BEFORE_VERSION}" >> $GITHUB_OUTPUT
+
       - name: Install dependencies
         run: npm install
 
@@ -67,3 +73,13 @@ jobs:
           echo "- **Repository:** [keshavsoft/vs-code-ext-from-any-js](https://github.com/keshavsoft/vs-code-ext-from-any-js)" >> $GITHUB_STEP_SUMMARY
           PACKAGE_NAME="${{ github.event.client_payload.package || 'kschema-build-endpoints' }}"
           echo "- **Updated Dependency:** [${PACKAGE_NAME} on npm](https://www.npmjs.com/package/${PACKAGE_NAME})" >> $GITHUB_STEP_SUMMARY
+          
+          # Check if the version was bumped
+          AFTER_VERSION=$(node -p "require('./package.json').version")
+          if [ "${{ steps.before.outputs.version }}" != "$AFTER_VERSION" ]; then
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "### 🚀 Extension Version Bump Summary" >> $GITHUB_STEP_SUMMARY
+            echo "- **Before Version:** \`${{ steps.before.outputs.version }}\`" >> $GITHUB_STEP_SUMMARY
+            echo "- **After Version:** \`${AFTER_VERSION}\`" >> $GITHUB_STEP_SUMMARY
+            echo "- **Status:** ✅ Successfully Bumped & Pushed to GitHub" >> $GITHUB_STEP_SUMMARY
+          fi
