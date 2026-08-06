@@ -1,9 +1,3 @@
-// const varName = "folderName";
-// const routerName = "variable";
-
-const varName = "raka";
-const routerName = "poka";
-
 export function renderFolders(foldersList) {
     const container = document.getElementById("folders-list-container");
     if (!container) return;
@@ -20,12 +14,12 @@ export function renderFolders(foldersList) {
 
             const name = document.createElement("span");
             name.className = "font-mono font-medium text-xs text-slate-200 truncate";
-            name.textContent = loopFolder[varName];
-            name.title = loopFolder[varName];
+            name.textContent = loopFolder.folderName;
+            name.title = loopFolder.folderName;
 
             const sub = document.createElement("span");
             sub.className = "text-[10px] text-slate-500 font-mono";
-            sub.textContent = `router as ${loopFolder[routerName] || 'router'}`;
+            sub.textContent = `router as ${loopFolder.variable || 'router'}`;
 
             info.appendChild(name);
             info.appendChild(sub);
