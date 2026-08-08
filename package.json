@@ -4,7 +4,7 @@
   "description": "start from any js, and hook foldes",
   "publisher": "KeshavSoft",
   "type": "module",
-  "version": "1.22.21",
+  "version": "1.22.22",
   "engines": {
     "vscode": "^1.116.0"
   },
@@ -153,7 +153,7 @@
     "pattern-collector-anyjs-story": "^1.24.9",
     "pattern-collector-appjs-use-extract": "^1.2.1",
     "pattern-collector-routesjs-import-extract": "^1.2.2",
-    "template-provider": "^1.14.8",
+    "template-provider": "^1.14.9",
     "template-provider-with-discovery": "^1.6.2"
   }
 }
